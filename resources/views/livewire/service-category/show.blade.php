@@ -9,7 +9,7 @@
                 </x-wirekit::breadcrumb>
                 
                 <h1 class="text-4xl font-heading font-bold text-wk-text mb-4">{{ str($slug)->headline() }} Providers</h1>
-                <p class="text-lg text-wk-text-subtle">Found 12 vetted professionals near you.</p>
+                <p class="text-lg text-wk-text-subtle">Found {{ $providers->total() }} vetted professionals near you.</p>
             </div>
         </x-wirekit::container>
     </x-wirekit::section>
@@ -53,77 +53,31 @@
                 <!-- Provider List -->
                 <div class="flex-1">
                     <x-wirekit::grid cols="1 lg:2" class="gap-6">
-                        <!-- Provider 1 -->
+                        @forelse($providers as $provider)
                         <x-wirekit::card>
                             <x-wirekit::card.body class="flex gap-4">
-                                <x-wirekit::avatar src="https://ui-avatars.com/api/?name=Ochieng+P&background=006B3F&color=fff" size="lg" />
+                                <x-wirekit::avatar src="https://ui-avatars.com/api/?name={{ urlencode($provider->name) }}&background=006B3F&color=fff" size="lg" />
                                 <div>
-                                    <h3 class="font-heading font-semibold text-lg">Ochieng's Plumbing Services</h3>
-                                    <p class="text-sm text-wk-text-subtle mb-2">Kibera, Nairobi</p>
-                                    <x-wirekit::badge intent="warning" class="mb-2">★ 4.8 (120 reviews)</x-wirekit::badge>
-                                    <p class="text-sm font-medium text-wk-accent">From KES 1,500 / visit</p>
+                                    <h3 class="font-heading font-semibold text-lg">{{ $provider->name }}</h3>
+                                    <p class="text-sm text-wk-text-subtle mb-2">Location TBA</p>
+                                    <x-wirekit::badge intent="warning" class="mb-2">★ 5.0 (New)</x-wirekit::badge>
+                                    <p class="text-sm font-medium text-wk-accent">Contact for pricing</p>
                                 </div>
                             </x-wirekit::card.body>
                             <x-wirekit::card.footer class="flex justify-between">
-                                <x-wirekit::button href="/provider/ochiengs-plumbing" size="sm" intent="neutral" surface="outline">View Profile</x-wirekit::button>
+                                <x-wirekit::button href="{{ route('provider.profile', ['slug' => $provider->id]) }}" size="sm" intent="neutral" surface="outline">View Profile</x-wirekit::button>
                                 <x-wirekit::button size="sm">Book Now</x-wirekit::button>
                             </x-wirekit::card.footer>
                         </x-wirekit::card>
-
-                        <!-- Provider 2 -->
-                        <x-wirekit::card>
-                            <x-wirekit::card.body class="flex gap-4">
-                                <x-wirekit::avatar src="https://ui-avatars.com/api/?name=Mama+F&background=C0392B&color=fff" size="lg" />
-                                <div>
-                                    <h3 class="font-heading font-semibold text-lg">Mama Fua - Lilian</h3>
-                                    <p class="text-sm text-wk-text-subtle">Kileleshwa, Nairobi</p>
-                                    <x-wirekit::badge intent="warning" class="mb-2">★ 4.9 (340 reviews)</x-wirekit::badge>
-                                    <p class="text-sm font-medium text-wk-accent">From KES 800 / day</p>
-                                </div>
-                            </x-wirekit::card.body>
-                            <x-wirekit::card.footer class="flex justify-between">
-                                <x-wirekit::button href="/provider/mama-fua-lilian" size="sm" intent="neutral" surface="outline">View Profile</x-wirekit::button>
-                                <x-wirekit::button size="sm">Book Now</x-wirekit::button>
-                            </x-wirekit::card.footer>
-                        </x-wirekit::card>
-
-                        <!-- Provider 3 -->
-                        <x-wirekit::card>
-                            <x-wirekit::card.body class="flex gap-4">
-                                <x-wirekit::avatar src="https://ui-avatars.com/api/?name=Kamau+E&background=E8A317&color=fff" size="lg" />
-                                <div>
-                                    <h3 class="font-heading font-semibold text-lg">Kamau Electricals</h3>
-                                    <p class="text-sm text-wk-text-subtle">Thika Road, Nairobi</p>
-                                    <x-wirekit::badge intent="warning" class="mb-2">★ 4.5 (89 reviews)</x-wirekit::badge>
-                                    <p class="text-sm font-medium text-wk-accent">From KES 2,000 / fix</p>
-                                </div>
-                            </x-wirekit::card.body>
-                            <x-wirekit::card.footer class="flex justify-between">
-                                <x-wirekit::button href="/provider/kamau-electricals" size="sm" intent="neutral" surface="outline">View Profile</x-wirekit::button>
-                                <x-wirekit::button size="sm">Book Now</x-wirekit::button>
-                            </x-wirekit::card.footer>
-                        </x-wirekit::card>
-                        
-                        <!-- Provider 4 -->
-                        <x-wirekit::card>
-                            <x-wirekit::card.body class="flex gap-4">
-                                <x-wirekit::avatar src="https://ui-avatars.com/api/?name=Amina+S&background=1F2937&color=fff" size="lg" />
-                                <div>
-                                    <h3 class="font-heading font-semibold text-lg">Amina Salon & Spa</h3>
-                                    <p class="text-sm text-wk-text-subtle">Eastleigh, Nairobi</p>
-                                    <x-wirekit::badge intent="warning" class="mb-2">★ 4.7 (210 reviews)</x-wirekit::badge>
-                                    <p class="text-sm font-medium text-wk-accent">From KES 1,200 / style</p>
-                                </div>
-                            </x-wirekit::card.body>
-                            <x-wirekit::card.footer class="flex justify-between">
-                                <x-wirekit::button href="/provider/amina-salon" size="sm" intent="neutral" surface="outline">View Profile</x-wirekit::button>
-                                <x-wirekit::button size="sm">Book Now</x-wirekit::button>
-                            </x-wirekit::card.footer>
-                        </x-wirekit::card>
+                        @empty
+                        <div class="col-span-full py-8 text-center text-gray-500">
+                            No approved providers found for this category yet.
+                        </div>
+                        @endforelse
                     </x-wirekit::grid>
 
                     <div class="mt-8">
-                        <x-wirekit::pagination />
+                        {{ $providers->links() }}
                     </div>
                 </div>
             </div>

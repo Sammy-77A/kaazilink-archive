@@ -33,6 +33,23 @@ Route::middleware('auth')->group(function () {
         request()->session()->regenerateToken();
         return redirect('/');
     })->name('logout');
+
+    // Provider KYC Submit
+    Route::get('/kyc/submit', \App\Livewire\Provider\KycSubmit::class)->name('kyc.submit');
+    
+    // Protected Document Access
+    Route::get('/kyc/document/{path}', [\App\Http\Controllers\KycDocumentController::class, 'show'])
+        ->where('path', '.*')
+        ->name('kyc.document');
+});
+
+// Admin Routes
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/', \App\Livewire\Admin\Dashboard::class)->name('dashboard');
+    Route::get('/kyc', \App\Livewire\Admin\Kyc\Index::class)->name('kyc.index');
+    Route::get('/kyc/{submission}', \App\Livewire\Admin\Kyc\Show::class)->name('kyc.show');
+    Route::get('/settings', \App\Livewire\Admin\Settings\Index::class)->name('settings.index');
+    Route::get('/metrics', \App\Livewire\Admin\Metrics\Index::class)->name('metrics.index');
 });
 
 // Phase 1 "Sockets": Foundational Livewire Component Routes

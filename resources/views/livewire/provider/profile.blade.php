@@ -5,14 +5,14 @@
                 <x-wirekit::breadcrumb class="mb-6">
                     <x-wirekit::link href="/" variant="subtle">Home</x-wirekit::link>
                     <x-wirekit::link href="/browse" variant="subtle">Providers</x-wirekit::link>
-                    <span class="text-wk-text font-medium">{{ str($slug)->headline() }}</span>
+                    <span class="text-wk-text font-medium">{{ $provider->name }}</span>
                 </x-wirekit::breadcrumb>
                 
                 <div class="flex flex-col md:flex-row gap-6 items-start">
-                    <x-wirekit::avatar src="https://ui-avatars.com/api/?name=Ochieng+P&background=006B3F&color=fff&size=128" size="xl" class="shrink-0" />
+                    <x-wirekit::avatar src="https://ui-avatars.com/api/?name={{ urlencode($provider->name) }}&background=006B3F&color=fff&size=128" size="xl" class="shrink-0" />
                     <div>
-                        <h1 class="text-4xl font-heading font-bold text-wk-text mb-2">{{ str($slug)->headline() }}</h1>
-                        <p class="text-lg text-wk-text-subtle mb-4">Professional Plumbing & Water Systems in Kibera, Nairobi.</p>
+                        <h1 class="text-4xl font-heading font-bold text-wk-text mb-2">{{ $provider->name }}</h1>
+                        <p class="text-lg text-wk-text-subtle mb-4">Professional Services in Kenya.</p>
                         <div class="flex flex-wrap gap-4 items-center">
                             <x-wirekit::badge intent="warning">★ 4.8 (120 reviews)</x-wirekit::badge>
                             <x-wirekit::badge intent="success">✓ Verified by Kaazilink</x-wirekit::badge>
@@ -33,7 +33,7 @@
                 <div class="flex-1">
                     <h2 class="text-2xl font-heading font-semibold mb-6">About the Provider</h2>
                     <x-wirekit::prose class="mb-12">
-                        <p>With over 10 years of experience, Ochieng's Plumbing Services offers reliable, fast, and affordable plumbing repairs for both households and businesses. We specialize in fixing leaks, unblocking drainage systems, and installing water tanks.</p>
+                        <p>Welcome to the profile of {{ $provider->name }}. We offer reliable, fast, and affordable services for both households and businesses.</p>
                     </x-wirekit::prose>
 
                     <h2 class="text-2xl font-heading font-semibold mb-6">Services Offered</h2>

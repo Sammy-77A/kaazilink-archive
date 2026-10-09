@@ -15,6 +15,11 @@ class Show extends Component
 
     public function render()
     {
-        return view('livewire.service-category.show');
+        // Fetch approved providers (mocking the relationship to the category for now by just getting all approved providers)
+        $providers = \App\Models\User::approvedProvider()->paginate(10);
+
+        return view('livewire.service-category.show', [
+            'providers' => $providers,
+        ]);
     }
 }

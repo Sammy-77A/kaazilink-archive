@@ -15,6 +15,11 @@ class Profile extends Component
 
     public function render()
     {
-        return view('livewire.provider.profile');
+        // Enforce gating: only approved providers can be viewed
+        $provider = \App\Models\User::approvedProvider()->findOrFail($this->slug);
+
+        return view('livewire.provider.profile', [
+            'provider' => $provider,
+        ]);
     }
 }
