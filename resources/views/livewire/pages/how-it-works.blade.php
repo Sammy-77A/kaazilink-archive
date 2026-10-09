@@ -79,7 +79,7 @@
             </div>
             
             <div class="mt-16 text-center">
-                <x-wirekit::button size="lg">Join Kaazilink Today</x-wirekit::button>
+                <x-wirekit::button size="lg" href="/register" tag="a">Join Kaazilink Today</x-wirekit::button>
             </div>
         </x-wirekit::container>
     </x-wirekit::section>
