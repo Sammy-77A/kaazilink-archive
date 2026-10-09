@@ -44,6 +44,16 @@ class Booking extends Model
         return $this->hasOne(Review::class);
     }
 
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function latestPayment()
+    {
+        return $this->hasOne(Payment::class)->latestOfMany();
+    }
+
     // ==========================================
     // Phase 1 Sockets: Booking State Transitions
     // ==========================================

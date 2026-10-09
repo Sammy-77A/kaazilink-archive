@@ -42,11 +42,32 @@
                                             Scheduled for: <span class="font-medium">{{ \Carbon\Carbon::parse($booking->scheduled_at)->format('M j, Y g:i A') }}</span>
                                         </div>
                                     @endif
+
+                                    @if($booking->price)
+                                        <div class="flex items-center gap-2 mt-2">
+                                            <span class="text-sm font-semibold text-green-700">Rate: KES {{ number_format($booking->price, 2) }}</span>
+                                            @if($booking->latestPayment)
+                                                @if($booking->latestPayment->isSuccessful())
+                                                    <x-wirekit::badge intent="success" size="sm">Paid ({{ ucfirst($booking->latestPayment->gateway) }})</x-wirekit::badge>
+                                                @elseif($booking->latestPayment->isFailed())
+                                                    <x-wirekit::badge intent="danger" size="sm">Payment Failed</x-wirekit::badge>
+                                                @else
+                                                    <x-wirekit::badge intent="warning" size="sm">STK Sent</x-wirekit::badge>
+                                                @endif
+                                            @endif
+                                        </div>
+                                    @endif
                                 </div>
 
                                 <div class="shrink-0 flex items-center gap-2">
+                                    @if(Auth::id() === $booking->client_id && $booking->price > 0 && (!$booking->latestPayment || !$booking->latestPayment->isSuccessful()))
+                                        <x-wirekit::button wire:click="$dispatch('openPaymentModal', { bookingId: {{ $booking->id }} })" intent="success" size="sm">
+                                            {{ $booking->latestPayment && $booking->latestPayment->isFailed() ? 'Retry M-PESA' : 'Pay with M-PESA' }}
+                                        </x-wirekit::button>
+                                    @endif
+
                                     @if(in_array($booking->status, ['requested', 'accepted']))
-                                        <x-wirekit::button wire:click="markCompleted({{ $booking->id }})" intent="success" size="sm">
+                                        <x-wirekit::button wire:click="markCompleted({{ $booking->id }})" intent="neutral" surface="outline" size="sm">
                                             Mark Completed
                                         </x-wirekit::button>
                                     @endif
@@ -66,4 +87,5 @@
     </x-wirekit::section>
 
     <livewire:review.create-modal />
+    <livewire:payment.pay-modal />
 </div>
