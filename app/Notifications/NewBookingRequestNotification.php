@@ -49,7 +49,10 @@ class NewBookingRequestNotification extends Notification
             ->line("You have received a new booking request on Kaazilink for **{$serviceName}** from **{$clientName}**.");
 
         if ($this->booking->scheduled_at) {
-            $mail->line("**Requested Time:** " . $this->booking->scheduled_at->format('M d, Y \a\t g:i A'));
+            $scheduledDate = $this->booking->scheduled_at instanceof \Carbon\CarbonInterface
+                ? $this->booking->scheduled_at
+                : \Carbon\Carbon::parse($this->booking->scheduled_at);
+            $mail->line("**Requested Time:** " . $scheduledDate->format('M d, Y \a\t g:i A'));
         }
 
         return $mail
