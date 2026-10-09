@@ -16,7 +16,35 @@ class Profile extends Component
     public function render()
     {
         // Enforce gating: only approved providers can be viewed
-        $provider = \App\Models\User::approvedProvider()->with('serviceAreas')->findOrFail($this->slug);
+        $provider = \App\Models\User::approvedProvider()->with(['serviceAreas', 'providerServices', 'reviewsAsProvider.client'])->findOrFail($this->slug);
+        
+        $allServices = collect(\App\Data\ServiceDirectory::getServices());
+        
+        $providerServices = $provider->providerServices->map(function($ps) use ($allServices) {
+            return $allServices->firstWhere('slug', $ps->service_slug);
+        })->filter();
+
+        $reviews = $provider->reviewsAsProvider()->latest()->get();
+        $averageRating = $reviews->avg('rating') ?: 0;
+
+        $canReview = false;
+        $bookingIdToReview = null;
+
+        if (\Illuminate\Support\Facades\Auth::check()) {
+            $userId = \Illuminate\Support\Facades\Auth::id();
+            
+            // Find a completed booking for this user with this provider that hasn't been reviewed yet
+            $unreviewedBooking = \App\Models\Booking::where('client_id', $userId)
+                ->where('provider_id', $provider->id)
+                ->where('status', 'completed')
+                ->whereDoesntHave('review')
+                ->first();
+
+            if ($unreviewedBooking) {
+                $canReview = true;
+                $bookingIdToReview = $unreviewedBooking->id;
+            }
+        }
 
         $mapMarkers = $provider->serviceAreas->map(function($area) use ($provider) {
             return [
@@ -31,6 +59,11 @@ class Profile extends Component
         return view('livewire.provider.profile', [
             'provider' => $provider,
             'mapMarkers' => $mapMarkers,
+            'services' => $providerServices,
+            'reviews' => $reviews,
+            'averageRating' => $averageRating,
+            'canReview' => $canReview,
+            'bookingIdToReview' => $bookingIdToReview,
         ])->layout('components.layouts.app');
     }
 }

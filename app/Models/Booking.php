@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'client_id',
         'provider_id',
@@ -20,6 +22,21 @@ class Booking extends Model
     public function reschedules()
     {
         return $this->hasMany(BookingReschedule::class);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(User::class, 'client_id');
+    }
+
+    public function provider()
+    {
+        return $this->belongsTo(User::class, 'provider_id');
+    }
+
+    public function review()
+    {
+        return $this->hasOne(Review::class);
     }
 
     // ==========================================
@@ -43,7 +60,8 @@ class Booking extends Model
 
     public function complete()
     {
-        // TODO: (Phase 2) Implement state transition, trigger Payment Percentage Deduction, request Comments and Reviews
+        $this->update(['status' => 'completed']);
+        // Payment percentages and requests for reviews will be triggered here in the future
     }
 
     public function cancelByClient()

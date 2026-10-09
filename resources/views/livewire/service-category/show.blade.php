@@ -51,13 +51,12 @@
                 <!-- Provider List -->
                 <div class="flex-1">
                     @if(count($mapMarkers) > 0)
-                        <div class="h-64 mb-6 rounded-lg overflow-hidden border border-[var(--color-wk-border-subtle)]">
-                            <x-wirekit::map 
-                                :markers="$mapMarkers" 
-                                styleUrl="https://tiles.openfreemap.org/styles/positron"
-                                :zoom="10"
-                            />
-                        </div>
+                        <x-wirekit::map 
+                            :markers="$mapMarkers" 
+                            styleUrl="https://tiles.openfreemap.org/styles/positron"
+                            :zoom="10"
+                            class="mb-6"
+                        />
                     @endif
 
                     <x-wirekit::grid cols="1 lg:2" class="gap-6">

@@ -44,6 +44,9 @@ Route::middleware('auth')->group(function () {
 
     // Provider Service Areas
     Route::get('/provider/service-areas', \App\Livewire\Provider\ServiceAreasManager::class)->name('provider.service-areas');
+    Route::get('/provider/services', \App\Livewire\Provider\ProviderServicesManager::class)->name('provider.services');
+    // Bookings Dashboard
+    Route::get('/dashboard/bookings', \App\Livewire\Dashboard\Bookings::class)->name('dashboard.bookings');
 });
 
 // Admin Routes
