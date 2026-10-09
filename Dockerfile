@@ -44,11 +44,7 @@ RUN docker-php-ext-configure gd \
         bcmath \
         intl \
         exif \
-        pcntl \
-        xml \
-        dom \
-        fileinfo \
-        tokenizer
+        pcntl
 
 # ── Composer ─────────────────────────────────────────────────────────────────
 COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
