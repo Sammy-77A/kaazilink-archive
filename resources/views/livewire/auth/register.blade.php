@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-[#FAFAFA] flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+<div class="min-h-screen bg-[#FAFAFA] flex flex-col justify-center py-12 sm:px-6 lg:px-8" x-data="{ agreedTerms: false, termsNotice: false }">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 class="mt-6 text-center text-3xl font-extrabold text-[#1F2937] font-outfit">
             Create your account
@@ -67,6 +67,26 @@
                     </div>
                 </div>
 
+                {{-- Terms and Conditions Checkbox --}}
+                <div class="pt-2">
+                    <div class="flex items-start">
+                        <div class="flex items-center h-5">
+                            <input wire:model="terms" id="terms" name="terms" type="checkbox"
+                                @change="agreedTerms = $event.target.checked"
+                                class="h-4 w-4 text-[#006B3F] focus:ring-[#006B3F] border-gray-300 rounded transition duration-150 ease-in-out cursor-pointer">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="terms" class="font-medium text-gray-700 font-inter cursor-pointer">
+                                I agree to the 
+                                <a href="{{ route('terms') }}" target="_blank" class="text-[#006B3F] underline hover:text-[#005a34]">Terms of Service</a>
+                                and 
+                                <a href="{{ route('privacy') }}" target="_blank" class="text-[#006B3F] underline hover:text-[#005a34]">Privacy Policy</a>
+                            </label>
+                        </div>
+                    </div>
+                    @error('terms') <span class="text-xs text-[#C0392B] mt-1 block">{{ $message }}</span> @enderror
+                </div>
+
                 <div>
                     <button type="submit"
                         class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#006B3F] hover:bg-[#005a34] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#006B3F] font-inter transition-colors duration-200">
@@ -89,7 +109,9 @@
 
                 <div class="mt-6">
                     <a href="{{ route('auth.google') }}"
-                        class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 font-inter transition-colors duration-200">
+                        @click="if(!agreedTerms) { $event.preventDefault(); termsNotice = true; }"
+                        :class="agreedTerms ? 'opacity-100 hover:bg-gray-50 cursor-pointer' : 'opacity-60 cursor-not-allowed'"
+                        class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 font-inter transition-colors duration-200">
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
@@ -98,6 +120,10 @@
                         </svg>
                         <span class="ml-2">Google</span>
                     </a>
+                    
+                    <p x-show="termsNotice && !agreedTerms" x-transition class="text-xs text-[#C0392B] mt-2 text-center" style="display: none;">
+                        Please agree to the Terms of Service & Privacy Policy before signing up with Google.
+                    </p>
                 </div>
             </div>
         </div>

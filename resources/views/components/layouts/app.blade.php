@@ -194,6 +194,91 @@
             <x-wirekit::main>
                 {{ $slot }}
             </x-wirekit::main>
+
+            {{-- Universal Application Footer --}}
+            <footer class="bg-white border-t border-gray-200 mt-auto">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                        {{-- Brand Column --}}
+                        <div class="space-y-4 md:col-span-1">
+                            <a href="/" class="text-2xl font-bold tracking-tight text-gray-900 font-heading">
+                                KAAZILINK
+                            </a>
+                            <p class="text-sm text-gray-500 font-inter leading-relaxed">
+                                Kenya's community-driven service connection marketplace. Safe, reliable, vetted fundis and domestic services at your fingertips.
+                            </p>
+                            <p class="text-xs text-gray-400 font-inter">
+                                Tupate Fundi Haraka &bull; Pata Kaazi Faster
+                            </p>
+                        </div>
+
+                        {{-- Quick Links --}}
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-900 font-heading uppercase tracking-wider">
+                                Platform
+                            </h3>
+                            <ul class="mt-4 space-y-2.5 font-inter text-sm">
+                                <li>
+                                    <a href="/" class="text-gray-600 hover:text-[#006B3F] transition-colors">Home</a>
+                                </li>
+                                <li>
+                                    <a href="/services" class="text-gray-600 hover:text-[#006B3F] transition-colors">Find a Service</a>
+                                </li>
+                                <li>
+                                    <a href="/how-it-works" class="text-gray-600 hover:text-[#006B3F] transition-colors">How It Works</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('provider.onboarding') }}" class="text-gray-600 hover:text-[#006B3F] transition-colors font-medium text-[#006B3F]">Become a Provider</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        {{-- Service Categories --}}
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-900 font-heading uppercase tracking-wider">
+                                Top Categories
+                            </h3>
+                            <ul class="mt-4 space-y-2.5 font-inter text-sm text-gray-600">
+                                <li>Home Care & House Help</li>
+                                <li>Fundi & Technical Repairs</li>
+                                <li>Daily Needs & Delivery</li>
+                                <li>Beauty & Social Support</li>
+                            </ul>
+                        </div>
+
+                        {{-- Legal & Contact --}}
+                        <div>
+                            <h3 class="text-sm font-semibold text-gray-900 font-heading uppercase tracking-wider">
+                                Trust & Legal
+                            </h3>
+                            <ul class="mt-4 space-y-2.5 font-inter text-sm">
+                                <li>
+                                    <a href="{{ route('terms') }}" class="text-gray-600 hover:text-[#006B3F] transition-colors font-medium">Terms of Service</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('privacy') }}" class="text-gray-600 hover:text-[#006B3F] transition-colors font-medium">Privacy Policy</a>
+                                </li>
+                                <li class="pt-2 text-xs text-gray-500">
+                                    Support: <a href="mailto:hello@kaazilink.co.ke" class="text-[#006B3F] hover:underline">hello@kaazilink.co.ke</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 pt-8 border-t border-gray-100 flex flex-col sm:flex-row justify-between items-center gap-4">
+                        <p class="text-xs text-gray-500 font-inter">
+                            &copy; {{ date('Y') }} Kaazilink Kenya. All rights reserved.
+                        </p>
+                        <div class="flex items-center space-x-6 text-xs text-gray-500 font-inter">
+                            <a href="{{ route('terms') }}" class="hover:text-gray-700">Terms</a>
+                            <span class="text-gray-300">&bull;</span>
+                            <a href="{{ route('privacy') }}" class="hover:text-gray-700">Privacy</a>
+                            <span class="text-gray-300">&bull;</span>
+                            <span class="text-gray-400">Made with pride in Kenya</span>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </x-wirekit::app-shell>
 
         @wirekitScripts

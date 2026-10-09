@@ -204,3 +204,17 @@ Before every commit, actively scan changed files for secrets — do not rely on 
 - **2026-09-21** - Fixed Missing "Pay with M-PESA" Button on Client Bookings Dashboard:
   - *Root Cause*: The "Pay with M-PESA" button in `/dashboard/bookings` requires `$booking->price > 0`. Bookings created with legacy seeded providers (e.g. Onyango Ndubi, Wanjiku Mbugua) inherited `price: NULL` because `QaDataSeeder` originally created `provider_services` without prices, and `CreateModal` had no price fallback.
   - *Fix*: Added default market rates to `QaDataSeeder`, added a fallback rate of KES 1,500.00 in `CreateModal::submit()`, updated existing null-price bookings for user 12 to test price KES 10.00, and added a visual "No price set (Quote pending)" indicator on dashboard cards when price is null. Committed and pushed to remote.
+- **2026-09-22** - Dockerization & Cloud Deployment to Render (Free Tier) + NeonDB PostgreSQL:
+  - Built multi-stage `Dockerfile` with PHP 8.4 Alpine, Nginx, PHP-FPM, Supervisor, and Vite asset compilation.
+  - Created `.docker/nginx.conf.template`, `.docker/supervisord.conf`, `.docker/start.sh`, and `render.yaml` blueprint with zero hardcoded paths/domains.
+  - Integrated NeonDB PostgreSQL connection via `DB_URL` and `sslmode=require`. Configured Cloudflare R2 as the production storage disk.
+  - Resolved deployment compilation errors: removed built-in core PHP extensions (`tokenizer`, `xml`, `dom`, `fileinfo`) from `docker-php-ext-install` and upgraded base image to `php:8.4-fpm-alpine` to satisfy Symfony 8 requirements.
+  - Fixed mixed-content and asset loading over HTTPS by trusting proxies in `bootstrap/app.php` (`$middleware->trustProxies(at: '*')`) and enforcing HTTPS scheme in production within `AppServiceProvider`.
+  - Added lightweight `/ping` endpoint in `routes/web.php` returning `pong` (200) to keep Render free tier alive via external scheduled cron.
+- **2026-09-23** - Mobile Navigation Drawer & Google OAuth Production Fix:
+  - *Mobile UI Drawer*: Replaced cramped top navigation on mobile (`md:hidden`) with a responsive slide-out drawer menu powered by Alpine.js. Added hamburger menu button and bold black `KAAZILINK` logo on top-left linking to `/`. Desktop navbar layout remains preserved and untouched.
+  - *Google OAuth Stateless Fix*: Root-caused Google sign-in redirect looping back to `/login`. Modern browsers blocked cross-site session cookies across OAuth redirects between Render and Google, causing Socialite state mismatches. Resolved by switching to `Socialite::driver('google')->stateless()`, explicitly enforcing the exact registered `redirectUrl`, adding session regeneration upon login, and enabling `LOG_LEVEL=debug`. Successfully verified live Google login on `https://kaazilink.onrender.com`.
+- **2026-09-23** - Terms & Conditions, Privacy Policy & Signup Gating:
+  - Created dedicated, Kenyan-context legal views: `pages.terms` (`/terms`) and `pages.privacy` (`/privacy`) complying with Kenyan marketplace standards and the Kenya Data Protection Act 2019.
+  - Implemented a unified application-wide footer across the primary layout (`components.layouts.app`) with platform links, service category highlights, legal links, and brand copyright.
+  - Added mandatory "Terms of Service and Privacy Policy" agreement checkbox to the registration page (`/register`), validating it both server-side in Livewire (`'terms' => 'accepted'`) and client-side via Alpine.js to gate both standard email signup and Google OAuth signup.

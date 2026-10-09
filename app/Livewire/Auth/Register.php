@@ -14,11 +14,17 @@ class Register extends Component
     public $email;
     public $password;
     public $password_confirmation;
+    public $terms = false;
 
     protected $rules = [
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required|string|min:8|confirmed',
+        'terms' => 'accepted',
+    ];
+
+    protected $messages = [
+        'terms.accepted' => 'You must agree to the Terms of Service and Privacy Policy to create an account.',
     ];
 
     public function register()
