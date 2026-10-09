@@ -13,6 +13,16 @@ class Profile extends Component
         $this->slug = $slug;
     }
 
+    public function bookNow($providerId)
+    {
+        $this->dispatch('openBookingModal', providerId: $providerId);
+    }
+
+    public function leaveReview($bookingId)
+    {
+        $this->dispatch('openReviewModal', bookingId: $bookingId);
+    }
+
     public function render()
     {
         // Enforce gating: only approved providers can be viewed
