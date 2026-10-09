@@ -92,3 +92,10 @@ Route::get('/provider/{slug}', \App\Livewire\Provider\Profile::class)->name('pro
 
 // External payment webhook callback route (matches /payments/callback/payhero in addition to /api/payments/callback/payhero)
 Route::post('/payments/callback/payhero', \App\Http\Controllers\Payments\PayHeroCallbackController::class)->name('payments.callback.payhero.web');
+
+// Lightweight Keep-Alive / Ping Endpoint (prevents Render free tier spin-down)
+Route::get('/ping', function () {
+    return response('pong', 200)
+        ->header('Content-Type', 'text/plain')
+        ->header('Cache-Control', 'no-cache, no-store, must-revalidate');
+})->name('ping');
