@@ -54,8 +54,14 @@ class QaDataSeeder extends Seeder
         $provider1->update(['role' => 'provider', 'kyc_status' => 'approved']);
         $areas1 = ServiceArea::take(3)->pluck('id')->toArray();
         $provider1->serviceAreas()->sync($areas1);
-        \App\Models\ProviderService::firstOrCreate(['user_id' => $provider1->id, 'service_slug' => 'plumber']);
-        \App\Models\ProviderService::firstOrCreate(['user_id' => $provider1->id, 'service_slug' => 'mama-fua-laundry']);
+        \App\Models\ProviderService::firstOrCreate(
+            ['user_id' => $provider1->id, 'service_slug' => 'plumber'],
+            ['price' => 2000.00]
+        );
+        \App\Models\ProviderService::firstOrCreate(
+            ['user_id' => $provider1->id, 'service_slug' => 'mama-fua-laundry'],
+            ['price' => 1500.00]
+        );
 
         // 4. Pending Provider
         $provider2 = User::firstOrCreate(
@@ -93,11 +99,22 @@ class QaDataSeeder extends Seeder
             $areaIds = ServiceArea::inRandomOrder()->take(rand(1, 3))->pluck('id')->toArray();
             $p->serviceAreas()->sync($areaIds);
             
-            // Assign some random services
-            $randomServices = ['plumber', 'electrician', 'carpenter', 'mama-fua-laundry', 'house-help-day-scholar', 'nanny-babysitter'];
+            // Assign some random services with realistic Kenyan market prices
+            $defaultPrices = [
+                'plumber' => 2000.00,
+                'electrician' => 2500.00,
+                'carpenter' => 2200.00,
+                'mama-fua-laundry' => 1200.00,
+                'house-help-day-scholar' => 1800.00,
+                'nanny-babysitter' => 2500.00,
+            ];
+            $randomServices = array_keys($defaultPrices);
             shuffle($randomServices);
             foreach (array_slice($randomServices, 0, rand(1, 3)) as $svc) {
-                \App\Models\ProviderService::firstOrCreate(['user_id' => $p->id, 'service_slug' => $svc]);
+                \App\Models\ProviderService::firstOrCreate(
+                    ['user_id' => $p->id, 'service_slug' => $svc],
+                    ['price' => $defaultPrices[$svc] ?? 1500.00]
+                );
             }
         }
     }

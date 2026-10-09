@@ -56,6 +56,10 @@
                                                 @endif
                                             @endif
                                         </div>
+                                    @else
+                                        <div class="flex items-center gap-2 mt-2">
+                                            <span class="text-xs text-gray-500 italic">No price set (Quote pending)</span>
+                                        </div>
                                     @endif
                                 </div>
 

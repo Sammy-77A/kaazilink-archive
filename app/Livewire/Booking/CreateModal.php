@@ -110,7 +110,7 @@ class CreateModal extends Component
             'client_id' => Auth::id(),
             'provider_id' => $provider->id,
             'service_slug' => $this->serviceSlug,
-            'price' => $providerService ? $providerService->price : null,
+            'price' => ($providerService && $providerService->price > 0) ? $providerService->price : 1500.00,
             'scheduled_at' => $this->scheduledAt ?: null,
             'status' => 'requested',
         ]);
