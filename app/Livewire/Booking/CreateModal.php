@@ -106,11 +106,16 @@ class CreateModal extends Component
             ->where('service_slug', $this->serviceSlug)
             ->first();
 
+        if (!$providerService || $providerService->price <= 0) {
+            $this->addError('serviceSlug', 'This provider has not set a price for the selected service. Please contact them directly.');
+            return;
+        }
+
         $booking = Booking::create([
             'client_id' => Auth::id(),
             'provider_id' => $provider->id,
             'service_slug' => $this->serviceSlug,
-            'price' => ($providerService && $providerService->price > 0) ? $providerService->price : 1500.00,
+            'price' => $providerService->price,
             'scheduled_at' => $this->scheduledAt ?: null,
             'status' => 'requested',
         ]);

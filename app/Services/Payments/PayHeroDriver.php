@@ -86,20 +86,55 @@ class PayHeroDriver implements PaymentGatewayInterface
 
         // Support PayHero payload formats (nested response object or flat)
         $data = $payload['response'] ?? $payload;
-        $statusStr = $data['status'] ?? $payload['status'] ?? '';
-        $isSuccess = strcasecmp((string)$statusStr, 'Success') === 0 || ($data['success'] ?? false) === true;
+        $statusStr = (string)($data['status'] ?? $payload['status'] ?? '');
+        $resultCode = $data['ResultCode'] ?? $payload['ResultCode'] ?? null;
+        $resultDesc = $data['ResultDesc'] ?? $data['result_desc'] ?? $data['message'] ?? $payload['message'] ?? null;
 
-        $reference = $data['external_reference'] ?? $data['reference'] ?? $payload['external_reference'] ?? $payload['reference'] ?? null;
-        $transactionId = $data['mpesa_reference'] ?? $data['transaction_id'] ?? null;
-        $amount = isset($data['amount']) ? (float)$data['amount'] : null;
+        $isSuccess = strcasecmp($statusStr, 'Success') === 0 
+            || ($data['success'] ?? false) === true
+            || ($resultCode === 0 || $resultCode === '0');
+
+        $isCancelled = false;
+        if ((int)$resultCode === 1032 || ($resultDesc && stripos((string)$resultDesc, 'cancel') !== false)) {
+            $isCancelled = true;
+        }
+
+        $reference = $data['external_reference'] 
+            ?? $data['reference'] 
+            ?? $data['CheckoutRequestID'] 
+            ?? $data['checkout_request_id'] 
+            ?? $payload['external_reference'] 
+            ?? $payload['reference'] 
+            ?? $payload['CheckoutRequestID'] 
+            ?? null;
+
+        $transactionId = $data['MpesaReceiptNumber'] 
+            ?? $data['mpesa_reference'] 
+            ?? $data['transaction_id'] 
+            ?? null;
+
+        $amount = isset($data['Amount']) ? (float)$data['Amount'] : (isset($data['amount']) ? (float)$data['amount'] : null);
+
+        if ($isSuccess) {
+            $message = 'Payment completed successfully via M-PESA.';
+            $status = 'successful';
+        } elseif ($isCancelled) {
+            $message = $resultDesc ?: 'Payment prompt was cancelled on phone.';
+            $status = 'cancelled';
+        } else {
+            $message = $resultDesc ?: 'M-PESA payment failed or was declined.';
+            $status = 'failed';
+        }
 
         return [
             'success' => $isSuccess,
-            'status' => $isSuccess ? 'successful' : 'failed',
+            'status' => $status,
             'reference' => $reference,
             'transaction_id' => $transactionId,
             'amount' => $amount,
-            'message' => $data['message'] ?? ($isSuccess ? 'Payment received successfully' : 'Payment failed or cancelled'),
+            'message' => $message,
+            'result_code' => $resultCode,
+            'result_desc' => $resultDesc,
             'raw' => $payload,
         ];
     }

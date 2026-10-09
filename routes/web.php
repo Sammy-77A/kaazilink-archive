@@ -89,3 +89,6 @@ Route::get('/services', \App\Livewire\ServiceCategory\Browse::class)->name('serv
 Route::get('/services/{slug}', \App\Livewire\ServiceCategory\Show::class)->name('services.show');
 
 Route::get('/provider/{slug}', \App\Livewire\Provider\Profile::class)->name('provider.profile');
+
+// External payment webhook callback route (matches /payments/callback/payhero in addition to /api/payments/callback/payhero)
+Route::post('/payments/callback/payhero', \App\Http\Controllers\Payments\PayHeroCallbackController::class)->name('payments.callback.payhero.web');

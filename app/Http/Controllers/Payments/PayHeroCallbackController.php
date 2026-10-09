@@ -57,8 +57,9 @@ class PayHeroCallbackController extends Controller
                 $booking->update(['status' => 'accepted']);
             }
         } else {
+            $status = ($result['status'] === 'cancelled') ? 'cancelled' : 'failed';
             $payment->update([
-                'status' => 'failed',
+                'status' => $status,
                 'error_message' => $result['message'] ?? 'Transaction failed or was cancelled by user.',
                 'raw_callback_payload' => $payload,
             ]);
