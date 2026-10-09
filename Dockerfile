@@ -1,8 +1,8 @@
 # ─────────────────────────────────────────────────────────────────────────────
-# Kaazilink — Laravel on PHP 8.2 (Alpine) with Nginx + PHP-FPM
+# Kaazilink — Laravel on PHP 8.4 (Alpine) with Nginx + PHP-FPM
 # Designed for Render.com free tier
 # ─────────────────────────────────────────────────────────────────────────────
-FROM php:8.2-fpm-alpine
+FROM php:8.4-fpm-alpine
 
 # ── System packages ──────────────────────────────────────────────────────────
 RUN apk add --no-cache \
