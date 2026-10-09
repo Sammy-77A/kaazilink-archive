@@ -91,13 +91,8 @@ Route::get('/services/{slug}', \App\Livewire\ServiceCategory\Show::class)->name(
 Route::get('/provider/{slug}', \App\Livewire\Provider\Profile::class)->name('provider.profile');
 
 // Legal & Trust Routes
-Route::get('/terms', function () {
-    return view('pages.terms')->layout('components.layouts.app', ['title' => 'Terms of Service — Kaazilink']);
-})->name('terms');
-
-Route::get('/privacy', function () {
-    return view('pages.privacy')->layout('components.layouts.app', ['title' => 'Privacy Policy — Kaazilink']);
-})->name('privacy');
+Route::get('/terms', \App\Livewire\Pages\Terms::class)->name('terms');
+Route::get('/privacy', \App\Livewire\Pages\Privacy::class)->name('privacy');
 
 // External payment webhook callback route (matches /payments/callback/payhero in addition to /api/payments/callback/payhero)
 Route::post('/payments/callback/payhero', \App\Http\Controllers\Payments\PayHeroCallbackController::class)->name('payments.callback.payhero.web');
