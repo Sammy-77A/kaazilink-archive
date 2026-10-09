@@ -99,18 +99,29 @@ class PayHeroDriver implements PaymentGatewayInterface
             $isCancelled = true;
         }
 
-        $reference = $data['external_reference'] 
+        $reference = $data['User_Reference']
+            ?? $data['user_reference']
+            ?? $data['external_reference'] 
+            ?? $data['ExternalReference'] 
             ?? $data['reference'] 
+            ?? $data['Reference'] 
             ?? $data['CheckoutRequestID'] 
             ?? $data['checkout_request_id'] 
+            ?? $payload['User_Reference'] 
+            ?? $payload['user_reference'] 
             ?? $payload['external_reference'] 
+            ?? $payload['ExternalReference'] 
             ?? $payload['reference'] 
+            ?? $payload['Reference'] 
             ?? $payload['CheckoutRequestID'] 
             ?? null;
 
-        $transactionId = $data['MpesaReceiptNumber'] 
+        $transactionId = $data['MPESA_Reference'] 
+            ?? $data['MpesaReceiptNumber'] 
             ?? $data['mpesa_reference'] 
             ?? $data['transaction_id'] 
+            ?? $payload['MPESA_Reference'] 
+            ?? $payload['MpesaReceiptNumber'] 
             ?? null;
 
         $amount = isset($data['Amount']) ? (float)$data['Amount'] : (isset($data['amount']) ? (float)$data['amount'] : null);
