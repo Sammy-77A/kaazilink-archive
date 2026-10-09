@@ -53,13 +53,11 @@ class ProviderSeeder extends Seeder
                 'bio' => 'EPRA certified residential & commercial electrician with 8+ years experience in domestic wiring, solar inverter setup, and fault diagnosis across Westlands & Kilimani.',
                 'areas' => $getAreaIds(['Westlands', 'Kilimani', 'Lavington', 'Kileleshwa']),
                 'services' => [
-                    ['slug' => 'house-rewiring', 'price' => 15000],
-                    ['slug' => 'socket-switch-installation', 'price' => 800],
-                    ['slug' => 'lighting-fixture-fitting', 'price' => 1200],
-                    ['slug' => 'circuit-breaker-repair', 'price' => 2500],
+                    ['slug' => 'electrician', 'name' => 'Electrical Wiring & Circuit Installation', 'price' => 3500],
+                    ['slug' => 'generator-mechanic', 'name' => 'Generator Maintenance & Backup Setup', 'price' => 4500],
                 ],
                 'test_service' => [
-                    ['slug' => 'test-service-electrical', 'custom_name' => 'Test Service – Electrical', 'price' => 1],
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Electrical', 'price' => 1],
                 ],
             ],
             [
@@ -70,12 +68,11 @@ class ProviderSeeder extends Seeder
                 'bio' => 'Specialist in solar power system installation, backup inverter configurations, generator maintenance, and industrial electrical panel fitting.',
                 'areas' => $getAreaIds(['Karen', 'Runda', 'Muthaiga', 'Gigiri']),
                 'services' => [
-                    ['slug' => 'solar-panel-installation', 'price' => 25000],
-                    ['slug' => 'generator-maintenance', 'price' => 4500],
-                    ['slug' => 'electrical-fault-diagnosis', 'price' => 2000],
+                    ['slug' => 'electrician', 'name' => 'Solar Power & Inverter Installation', 'price' => 25000],
+                    ['slug' => 'generator-mechanic', 'name' => 'Generator Maintenance', 'price' => 5000],
                 ],
                 'test_service' => [
-                    ['slug' => 'test-service-electrical', 'custom_name' => 'Test Service – Electrical', 'price' => 1],
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Electrical', 'price' => 1],
                 ],
             ],
             [
@@ -86,12 +83,10 @@ class ProviderSeeder extends Seeder
                 'bio' => 'Experienced electrician focused on smart home automation, security lighting installation, and heavy appliance connections.',
                 'areas' => $getAreaIds(['Nyali', 'Bamburi', 'Kisauni', 'Mvita']),
                 'services' => [
-                    ['slug' => 'security-lighting-installation', 'price' => 3000],
-                    ['slug' => 'appliance-wiring', 'price' => 1500],
-                    ['slug' => 'socket-switch-installation', 'price' => 750],
+                    ['slug' => 'electrician', 'name' => 'Security Lighting & Domestic Wiring', 'price' => 3000],
                 ],
                 'test_service' => [
-                    ['slug' => 'test-service-electrical', 'custom_name' => 'Test Service – Electrical', 'price' => 1],
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Electrical', 'price' => 1],
                 ],
             ],
 
@@ -104,13 +99,10 @@ class ProviderSeeder extends Seeder
                 'bio' => 'Master plumber with 10 years experience solving water pressure issues, solar water heater installations, pipe leak repairs, and full bathroom fitting.',
                 'areas' => $getAreaIds(['South B', 'South C', 'Langata', 'Madaraka']),
                 'services' => [
-                    ['slug' => 'pipe-leak-repair', 'price' => 1800],
-                    ['slug' => 'drain-unblocking', 'price' => 2200],
-                    ['slug' => 'water-heater-installation', 'price' => 5000],
-                    ['slug' => 'bathroom-fixture-fitting', 'price' => 3500],
+                    ['slug' => 'plumber', 'name' => 'Plumbing Repair & Leak Fixing', 'price' => 2500],
                 ],
                 'test_service' => [
-                    ['slug' => 'test-service-plumbing', 'custom_name' => 'Test Service – Plumbing', 'price' => 1],
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Plumbing', 'price' => 1],
                 ],
             ],
             [
@@ -121,12 +113,10 @@ class ProviderSeeder extends Seeder
                 'bio' => 'Plumbing specialist skilled in water tank fitting, booster pump repair, sewer line clearing, and emergency leak stopping.',
                 'areas' => $getAreaIds(['Eldoret CBD', 'Huruma (Eldoret)', 'Langas', 'Kapseret']),
                 'services' => [
-                    ['slug' => 'water-tank-installation', 'price' => 8000],
-                    ['slug' => 'booster-pump-repair', 'price' => 3500],
-                    ['slug' => 'sink-toilet-repair', 'price' => 1500],
+                    ['slug' => 'plumber', 'name' => 'Water Tank & Pipe Installation', 'price' => 4500],
                 ],
                 'test_service' => [
-                    ['slug' => 'test-service-plumbing', 'custom_name' => 'Test Service – Plumbing', 'price' => 1],
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Plumbing', 'price' => 1],
                 ],
             ],
             [
@@ -137,12 +127,10 @@ class ProviderSeeder extends Seeder
                 'bio' => 'Reliable plumber providing clean tap installations, shower mixer fittings, underground pipe repairs, and septic tank drainage services.',
                 'areas' => $getAreaIds(['Milimani (Nakuru)', 'Nakuru CBD', 'Kaptembwa', 'Free Area']),
                 'services' => [
-                    ['slug' => 'tap-mixer-replacement', 'price' => 1200],
-                    ['slug' => 'underground-pipe-repair', 'price' => 6000],
-                    ['slug' => 'drain-unblocking', 'price' => 2000],
+                    ['slug' => 'plumber', 'name' => 'Bathroom & Kitchen Plumbing Services', 'price' => 2000],
                 ],
                 'test_service' => [
-                    ['slug' => 'test-service-plumbing', 'custom_name' => 'Test Service – Plumbing', 'price' => 1],
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Plumbing', 'price' => 1],
                 ],
             ],
 
@@ -155,13 +143,10 @@ class ProviderSeeder extends Seeder
                 'bio' => 'Custom woodworking craftsman specializing in modern MDF/hardwood kitchen cabinets, custom wardrobes, door repairs, and furniture assembly.',
                 'areas' => $getAreaIds(['Ruaka', 'Thindigua', 'Kiambu Town', 'Kikuyu Town']),
                 'services' => [
-                    ['slug' => 'kitchen-cabinet-fitting', 'price' => 20000],
-                    ['slug' => 'wardrobe-installation', 'price' => 18000],
-                    ['slug' => 'door-lock-hinge-repair', 'price' => 1000],
-                    ['slug' => 'furniture-assembly', 'price' => 2500],
+                    ['slug' => 'carpenter', 'name' => 'Custom Kitchen Cabinets & Wardrobes', 'price' => 15000],
                 ],
                 'test_service' => [
-                    ['slug' => 'test-service-carpentry', 'custom_name' => 'Test Service – Carpentry', 'price' => 1],
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Carpentry', 'price' => 1],
                 ],
             ],
             [
@@ -172,12 +157,10 @@ class ProviderSeeder extends Seeder
                 'bio' => 'Experienced timber artisan proficient in roof truss construction, wooden flooring, pergolas, and custom dining table sets.',
                 'areas' => $getAreaIds(['Milimani (Kisumu)', 'Kisumu CBD', 'Nyalenda', 'Kondele']),
                 'services' => [
-                    ['slug' => 'roof-truss-construction', 'price' => 35000],
-                    ['slug' => 'wooden-flooring-installation', 'price' => 15000],
-                    ['slug' => 'custom-furniture-making', 'price' => 12000],
+                    ['slug' => 'carpenter', 'name' => 'Roof Truss & Custom Wood Furniture', 'price' => 12000],
                 ],
                 'test_service' => [
-                    ['slug' => 'test-service-carpentry', 'custom_name' => 'Test Service – Carpentry', 'price' => 1],
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Carpentry', 'price' => 1],
                 ],
             ],
             [
@@ -188,12 +171,10 @@ class ProviderSeeder extends Seeder
                 'bio' => 'Interior carpentry specialist doing acoustic ceiling panels, gyproc partitioning frames, office desk assembly, and door lock replacements.',
                 'areas' => $getAreaIds(['Roysambu', 'Kasarani', 'Kahawa West', 'Zimmerman']),
                 'services' => [
-                    ['slug' => 'door-lock-hinge-repair', 'price' => 1200],
-                    ['slug' => 'gyproc-partitioning-frame', 'price' => 10000],
-                    ['slug' => 'furniture-assembly', 'price' => 2000],
+                    ['slug' => 'carpenter', 'name' => 'Door Locks, Gyproc & Office Furniture', 'price' => 3500],
                 ],
                 'test_service' => [
-                    ['slug' => 'test-service-carpentry', 'custom_name' => 'Test Service – Carpentry', 'price' => 1],
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Carpentry', 'price' => 1],
                 ],
             ],
 
@@ -206,13 +187,10 @@ class ProviderSeeder extends Seeder
                 'bio' => 'Professional interior & exterior decorator skilled in silk finishes, textured wall designs, water-proofing primer application, and wallpaper installation.',
                 'areas' => $getAreaIds(['Parklands', 'Westlands', 'Lavington', 'Kilimani']),
                 'services' => [
-                    ['slug' => 'interior-wall-painting', 'price' => 8000],
-                    ['slug' => 'exterior-building-painting', 'price' => 25000],
-                    ['slug' => 'textured-wall-finish', 'price' => 12000],
-                    ['slug' => 'wallpaper-installation', 'price' => 4000],
+                    ['slug' => 'painter', 'name' => 'Interior & Exterior House Painting', 'price' => 8000],
                 ],
                 'test_service' => [
-                    ['slug' => 'test-service-painting', 'custom_name' => 'Test Service – Painting', 'price' => 1],
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Painting', 'price' => 1],
                 ],
             ],
             [
@@ -223,12 +201,10 @@ class ProviderSeeder extends Seeder
                 'bio' => 'Expert house painter specializing in damp proofing treatments, epoxy floor coatings, timber varnish application, and roof painting.',
                 'areas' => $getAreaIds(['Nyali', 'Bamburi', 'Shanzu', 'Mvita']),
                 'services' => [
-                    ['slug' => 'epoxy-floor-coating', 'price' => 18000],
-                    ['slug' => 'damp-proofing-treatment', 'price' => 9000],
-                    ['slug' => 'timber-varnish-staining', 'price' => 5000],
+                    ['slug' => 'painter', 'name' => 'Epoxy Coating & Damp Proof Painting', 'price' => 9000],
                 ],
                 'test_service' => [
-                    ['slug' => 'test-service-painting', 'custom_name' => 'Test Service – Painting', 'price' => 1],
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Painting', 'price' => 1],
                 ],
             ],
             [
@@ -239,12 +215,10 @@ class ProviderSeeder extends Seeder
                 'bio' => 'Detail-oriented painter delivering flawless residential repaints, crown molding painting, gate painting, and budget-friendly apartment touch-ups.',
                 'areas' => $getAreaIds(['Ruaka', 'Kiamumbi', 'Thika Town', 'Juja']),
                 'services' => [
-                    ['slug' => 'interior-wall-painting', 'price' => 7000],
-                    ['slug' => 'gate-fence-metal-painting', 'price' => 3500],
-                    ['slug' => 'wallpaper-installation', 'price' => 3500],
+                    ['slug' => 'painter', 'name' => 'Residential & Metal Gate Painting', 'price' => 4500],
                 ],
                 'test_service' => [
-                    ['slug' => 'test-service-painting', 'custom_name' => 'Test Service – Painting', 'price' => 1],
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Painting', 'price' => 1],
                 ],
             ],
 
@@ -257,13 +231,10 @@ class ProviderSeeder extends Seeder
                 'bio' => 'Seasoned mason with 12+ years expertise in ceramic & porcelain floor tiling, stone pitching, boundary wall construction, and plastering.',
                 'areas' => $getAreaIds(['Karen', 'Runda', 'Lavington', 'Kitisuru']),
                 'services' => [
-                    ['slug' => 'floor-wall-tiling', 'price' => 12000],
-                    ['slug' => 'boundary-wall-construction', 'price' => 45000],
-                    ['slug' => 'wall-plastering-screeding', 'price' => 8500],
-                    ['slug' => 'cabro-paving-installation', 'price' => 15000],
+                    ['slug' => 'mason-builder', 'name' => 'Floor Tiling & Boundary Wall Masonry', 'price' => 12000],
                 ],
                 'test_service' => [
-                    ['slug' => 'test-service-masonry', 'custom_name' => 'Test Service – Masonry', 'price' => 1],
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Masonry', 'price' => 1],
                 ],
             ],
             [
@@ -274,12 +245,10 @@ class ProviderSeeder extends Seeder
                 'bio' => 'Masonry contractor skilled in granite countertop fitting, concrete foundation slab pouring, paving block installation, and structural repairs.',
                 'areas' => $getAreaIds(['South B', 'South C', 'Syokimau', 'Kitengela']),
                 'services' => [
-                    ['slug' => 'granite-countertop-fitting', 'price' => 16000],
-                    ['slug' => 'concrete-slab-pouring', 'price' => 30000],
-                    ['slug' => 'floor-wall-tiling', 'price' => 10000],
+                    ['slug' => 'mason-builder', 'name' => 'Concrete Slab & Granite Fitting', 'price' => 15000],
                 ],
                 'test_service' => [
-                    ['slug' => 'test-service-masonry', 'custom_name' => 'Test Service – Masonry', 'price' => 1],
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Masonry', 'price' => 1],
                 ],
             ],
             [
@@ -290,12 +259,10 @@ class ProviderSeeder extends Seeder
                 'bio' => 'Mason specializing in stone cladding, chimney construction, terrazzo polishing, and foundation underpinning.',
                 'areas' => $getAreaIds(['Eldoret CBD', 'Elgon View (Eldoret)', 'Kapseret', 'Huruma (Eldoret)']),
                 'services' => [
-                    ['slug' => 'stone-cladding-installation', 'price' => 14000],
-                    ['slug' => 'terrazzo-polishing-repair', 'price' => 9000],
-                    ['slug' => 'wall-plastering-screeding', 'price' => 7500],
+                    ['slug' => 'mason-builder', 'name' => 'Stone Cladding & Wall Plastering', 'price' => 8500],
                 ],
                 'test_service' => [
-                    ['slug' => 'test-service-masonry', 'custom_name' => 'Test Service – Masonry', 'price' => 1],
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Masonry', 'price' => 1],
                 ],
             ],
 
@@ -308,13 +275,11 @@ class ProviderSeeder extends Seeder
                 'bio' => 'Specialized technician fixing automatic washing machines, domestic refrigerators, microwave ovens, and electric cookers across Nairobi estates.',
                 'areas' => $getAreaIds(['Kilimani', 'Westlands', 'Kileleshwa', 'South C']),
                 'services' => [
-                    ['slug' => 'washing-machine-repair', 'price' => 3500],
-                    ['slug' => 'refrigerator-repair-re-gassing', 'price' => 4500],
-                    ['slug' => 'microwave-repair', 'price' => 1800],
-                    ['slug' => 'electric-cooker-oven-repair', 'price' => 3000],
+                    ['slug' => 'washing-machine-repair', 'name' => 'Automatic Washing Machine Repair', 'price' => 3500],
+                    ['slug' => 'ac-fridge-repair', 'name' => 'Refrigerator Repair & Gas Refill', 'price' => 4500],
                 ],
                 'test_service' => [
-                    ['slug' => 'test-service-appliance-repair', 'custom_name' => 'Test Service – Appliance Repair', 'price' => 1],
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Appliance Repair', 'price' => 1],
                 ],
             ],
             [
@@ -325,12 +290,10 @@ class ProviderSeeder extends Seeder
                 'bio' => 'HVAC & refrigeration specialist handling inverter AC unit installation, commercial fridge servicing, cold room maintenance, and water dispenser fixes.',
                 'areas' => $getAreaIds(['Nyali', 'Mvita', 'Bamburi', 'Kisauni']),
                 'services' => [
-                    ['slug' => 'air-conditioner-installation-service', 'price' => 6000],
-                    ['slug' => 'commercial-refrigerator-repair', 'price' => 8000],
-                    ['slug' => 'water-dispenser-repair', 'price' => 2000],
+                    ['slug' => 'ac-fridge-repair', 'name' => 'AC Unit & Refrigerator Servicing', 'price' => 6000],
                 ],
                 'test_service' => [
-                    ['slug' => 'test-service-appliance-repair', 'custom_name' => 'Test Service – Appliance Repair', 'price' => 1],
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Appliance Repair', 'price' => 1],
                 ],
             ],
             [
@@ -341,12 +304,11 @@ class ProviderSeeder extends Seeder
                 'bio' => 'Electronics & home appliance expert fixing LED/Smart TVs, audio home theater systems, dishwasher units, and automatic washing machines.',
                 'areas' => $getAreaIds(['Milimani (Nakuru)', 'Nakuru CBD', 'Free Area', 'Kaptembwa']),
                 'services' => [
-                    ['slug' => 'tv-mounting-repair', 'price' => 2200],
-                    ['slug' => 'dishwasher-repair', 'price' => 4000],
-                    ['slug' => 'washing-machine-repair', 'price' => 3200],
+                    ['slug' => 'electronics-repair', 'name' => 'TV Mounting & Electronics Repair', 'price' => 2500],
+                    ['slug' => 'washing-machine-repair', 'name' => 'Washing Machine Repair', 'price' => 3200],
                 ],
                 'test_service' => [
-                    ['slug' => 'test-service-appliance-repair', 'custom_name' => 'Test Service – Appliance Repair', 'price' => 1],
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Appliance Repair', 'price' => 1],
                 ],
             ],
         ];
@@ -388,8 +350,8 @@ class ProviderSeeder extends Seeder
                         'service_slug' => $srv['slug'],
                     ],
                     [
-                        'custom_name' => $matchedSrv ? $matchedSrv['name'] : $srv['slug'],
-                        'custom_description' => $matchedSrv ? 'Professional ' . ($matchedSrv ? $matchedSrv['name'] : $srv['slug']) . ' service' : 'Professional service',
+                        'custom_name' => isset($srv['name']) ? $srv['name'] : ($matchedSrv ? $matchedSrv['name'] : $srv['slug']),
+                        'custom_description' => $matchedSrv ? 'Professional ' . $matchedSrv['name'] . ' service' : 'Professional service',
                         'price' => $srv['price'],
                         'is_custom' => false,
                     ]
