@@ -21,6 +21,7 @@ php artisan migrate --force
 
 if [ "$RUN_SEEDERS" = "true" ]; then
     echo "Running seeders..."
+    php artisan db:seed --class=ServiceAreaSeeder --no-interaction
     php artisan db:seed --class=ProviderSeeder --no-interaction
     php artisan db:seed --class=ReviewSeeder --no-interaction
     echo "Seeders complete."
