@@ -13,6 +13,16 @@
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+            @if(session()->has('error'))
+                <div class="rounded-md bg-red-50 p-4 mb-6">
+                    <div class="flex">
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-red-800">{{ session('error') }}</h3>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <form wire:submit.prevent="register" class="space-y-6">
                 <div>
                     <label for="name" class="block text-sm font-medium text-gray-700 font-inter">

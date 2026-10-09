@@ -21,17 +21,39 @@ class GoogleAuthController extends Controller
 
     public function redirect()
     {
+        $redirectUrl = $this->getRedirectUrl();
+        \Illuminate\Support\Facades\Log::info('Google Auth: Initiating redirect', [
+            'configured_redirect' => config('services.google.redirect'),
+            'resolved_redirectUrl' => $redirectUrl,
+            'client_id_prefix' => substr(config('services.google.client_id') ?? '', 0, 15) . '...',
+            'app_url' => config('app.url'),
+        ]);
+
         return Socialite::driver('google')
-            ->redirectUrl($this->getRedirectUrl())
+            ->redirectUrl($redirectUrl)
             ->redirect();
     }
 
     public function callback()
     {
+        $redirectUrl = $this->getRedirectUrl();
+        \Illuminate\Support\Facades\Log::info('Google Auth: Handling callback', [
+            'request_uri' => request()->fullUrl(),
+            'has_code' => request()->has('code'),
+            'has_error' => request()->has('error'),
+            'error' => request()->get('error'),
+            'resolved_redirectUrl' => $redirectUrl,
+        ]);
+
         try {
             $googleUser = Socialite::driver('google')
-                ->redirectUrl($this->getRedirectUrl())
+                ->redirectUrl($redirectUrl)
                 ->user();
+
+            \Illuminate\Support\Facades\Log::info('Google Auth: User retrieved successfully', [
+                'email' => $googleUser->getEmail(),
+                'id' => $googleUser->getId(),
+            ]);
 
             // Find existing user by email
             $user = User::where('email', $googleUser->getEmail())->first();
@@ -64,13 +86,19 @@ class GoogleAuthController extends Controller
             Auth::login($user, remember: true);
             request()->session()->regenerate();
 
+            \Illuminate\Support\Facades\Log::info('Google Auth: Successfully logged in user', [
+                'user_id' => $user->id,
+            ]);
+
             return redirect()->intended('/');
             
         } catch (\Exception $e) {
             \Illuminate\Support\Facades\Log::error('Google Auth Failed', [
                 'message' => $e->getMessage(),
+                'exception_class' => get_class($e),
                 'file' => $e->getFile(),
                 'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString(),
             ]);
 
             return redirect('/login')->with('error', 'Authentication failed: ' . $e->getMessage());
