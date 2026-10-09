@@ -1,0 +1,393 @@
+<!DOCTYPE html><html lang="en"><head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <title>Kaazilink</title>
+
+        <!-- Google Fonts: Inter and Outfit -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Outfit:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+
+        <link rel="preload" as="style" href="http://127.0.0.1:8000/build/assets/app-CEj9chQ_.css"><link rel="modulepreload" as="script" href="http://127.0.0.1:8000/build/assets/app-BvRk9kiK.js"><link rel="stylesheet" href="http://127.0.0.1:8000/build/assets/app-CEj9chQ_.css" data-navigate-track="reload"><script type="module" src="http://127.0.0.1:8000/build/assets/app-BvRk9kiK.js" data-navigate-track="reload"></script>
+        <!-- Livewire Styles --><style>[wire\:loading][wire\:loading], [wire\:loading\.delay][wire\:loading\.delay], [wire\:loading\.list-item][wire\:loading\.list-item], [wire\:loading\.inline-block][wire\:loading\.inline-block], [wire\:loading\.inline][wire\:loading\.inline], [wire\:loading\.block][wire\:loading\.block], [wire\:loading\.flex][wire\:loading\.flex], [wire\:loading\.table][wire\:loading\.table], [wire\:loading\.grid][wire\:loading\.grid], [wire\:loading\.inline-flex][wire\:loading\.inline-flex] {display: none;}[wire\:loading\.delay\.none][wire\:loading\.delay\.none], [wire\:loading\.delay\.shortest][wire\:loading\.delay\.shortest], [wire\:loading\.delay\.shorter][wire\:loading\.delay\.shorter], [wire\:loading\.delay\.short][wire\:loading\.delay\.short], [wire\:loading\.delay\.default][wire\:loading\.delay\.default], [wire\:loading\.delay\.long][wire\:loading\.delay\.long], [wire\:loading\.delay\.longer][wire\:loading\.delay\.longer], [wire\:loading\.delay\.longest][wire\:loading\.delay\.longest] {display: none;}[wire\:offline][wire\:offline] {display: none;}[wire\:dirty]:not(textarea):not(input):not(select) {display: none;}:root {--livewire-progress-bar-color: #2299dd;}[x-cloak] {display: none !important;}[wire\:cloak] {display: none !important;}dialog#livewire-error::backdrop {background-color: rgba(0, 0, 0, .6);}</style>
+        <link rel="stylesheet" href="http://127.0.0.1:8000/vendor/wirekit/wirekit.min.css?v=1787901356">
+    <style>/* Make clicks pass-through */
+
+    #nprogress {
+      pointer-events: none;
+    }
+
+    #nprogress .bar {
+      background: var(--livewire-progress-bar-color, #29d);
+
+      position: fixed;
+      z-index: 1031;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 2px;
+    }
+
+    /* Fancy blur effect */
+    #nprogress .peg {
+      display: block;
+      position: absolute;
+      right: 0px;
+      width: 100px;
+      height: 100%;
+      box-shadow: 0 0 10px var(--livewire-progress-bar-color, #29d), 0 0 5px var(--livewire-progress-bar-color, #29d);
+      opacity: 1.0;
+
+      -webkit-transform: rotate(3deg) translate(0px, -4px);
+          -ms-transform: rotate(3deg) translate(0px, -4px);
+              transform: rotate(3deg) translate(0px, -4px);
+    }
+
+    /* Remove these to get rid of the spinner */
+    #nprogress .spinner {
+      display: block;
+      position: fixed;
+      z-index: 1031;
+      top: 15px;
+      right: 15px;
+    }
+
+    #nprogress .spinner-icon {
+      width: 18px;
+      height: 18px;
+      box-sizing: border-box;
+
+      border: solid 2px transparent;
+      border-top-color: var(--livewire-progress-bar-color, #29d);
+      border-left-color: var(--livewire-progress-bar-color, #29d);
+      border-radius: 50%;
+
+      -webkit-animation: nprogress-spinner 400ms linear infinite;
+              animation: nprogress-spinner 400ms linear infinite;
+    }
+
+    .nprogress-custom-parent {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .nprogress-custom-parent #nprogress .spinner,
+    .nprogress-custom-parent #nprogress .bar {
+      position: absolute;
+    }
+
+    @-webkit-keyframes nprogress-spinner {
+      0%   { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+    @keyframes nprogress-spinner {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    </style></head>
+    <body class="bg-[var(--color-wk-bg)] text-[var(--color-wk-text)] font-sans antialiased min-h-screen">
+        
+        <div x-data="wirekitAppShell({ drawerId: &quot;wk-shell-nav-1&quot; })" data-wk-app-shell="" class="flex flex-col w-full min-h-screen bg-[var(--color-wk-bg)] text-[color:var(--color-wk-text)] font-[family-name:var(--font-wk-sans)]">
+                        <nav x-data="{ mobileOpen: false }" aria-label="Main navigation" class="w-full font-[family-name:var(--font-wk-sans)] bg-[var(--color-wk-bg-elevated)] border-b border-[var(--color-wk-border)]">
+    <div class="flex items-center justify-between px-[var(--padding-wk-x-lg)] h-16">
+        
+        
+        
+        <div class="hidden md:flex md:items-center md:gap-1 flex-1 ml-[var(--padding-wk-x-lg)]">
+            <a href="/" class="wk-brand flex items-center shrink-0 gap-[var(--gap-wk-sm)] text-[color:var(--color-wk-text)] no-underline">
+                <span class="font-[number:var(--font-wk-heading-weight)] text-[length:var(--text-wk-lg)]">Kaazilink</span>
+            </a>                    
+                    <div class="flex gap-4">
+                        <a href="/" class="inline-flex items-center px-[var(--padding-wk-x-sm)] py-[var(--padding-wk-y-sm)] text-[length:var(--text-wk-md)] rounded-[var(--radius-wk-sm)] transition-colors duration-[var(--transition-wk-duration)] hover:bg-[var(--color-wk-bg-subtle)] focus:outline-none focus-visible:ring-[length:var(--ring-wk-width)] focus-visible:ring-[var(--color-wk-ring)] text-[color:var(--color-wk-text)]">
+    Home
+    </a>
+                        <a href="/services" aria-current="page" class="inline-flex items-center px-[var(--padding-wk-x-sm)] py-[var(--padding-wk-y-sm)] text-[length:var(--text-wk-md)] rounded-[var(--radius-wk-sm)] transition-colors duration-[var(--transition-wk-duration)] hover:bg-[var(--color-wk-bg-subtle)] focus:outline-none focus-visible:ring-[length:var(--ring-wk-width)] focus-visible:ring-[var(--color-wk-ring)] text-[color:var(--color-wk-accent-text)] font-[number:var(--font-wk-heading-weight)]">
+    Services
+    </a>
+                        <a href="/how-it-works" class="inline-flex items-center px-[var(--padding-wk-x-sm)] py-[var(--padding-wk-y-sm)] text-[length:var(--text-wk-md)] rounded-[var(--radius-wk-sm)] transition-colors duration-[var(--transition-wk-duration)] hover:bg-[var(--color-wk-bg-subtle)] focus:outline-none focus-visible:ring-[length:var(--ring-wk-width)] focus-visible:ring-[var(--color-wk-ring)] text-[color:var(--color-wk-text)]">
+    How it Works
+    </a>
+                    </div>
+        </div>
+
+        
+        
+        
+        <button type="button" x-on:click="mobileOpen = !mobileOpen" :aria-expanded="mobileOpen ? 'true' : 'false'" aria-controls="wk-navbar-mobile" aria-label="Toggle navigation" class="md:hidden p-2 cursor-pointer rounded-[var(--radius-wk-sm)] text-[color:var(--color-wk-text-muted)] hover:bg-[var(--color-wk-bg-subtle)] focus:outline-none focus-visible:ring-[length:var(--ring-wk-width)] focus-visible:ring-[var(--color-wk-ring)]" aria-expanded="false">
+            
+            <svg x-show="!mobileOpen" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
+            </svg>
+            
+            <svg x-show="mobileOpen" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true" style="display: none;">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
+
+    
+    <div id="wk-navbar-mobile" x-show="mobileOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-1" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-1" class="md:hidden border-t border-[var(--color-wk-border)] px-[var(--padding-wk-x-lg)] py-[var(--padding-wk-y-md)] space-y-1" style="display: none;">
+        <a href="/" class="wk-brand flex items-center shrink-0 gap-[var(--gap-wk-sm)] text-[color:var(--color-wk-text)] no-underline">
+                <span class="font-[number:var(--font-wk-heading-weight)] text-[length:var(--text-wk-lg)]">Kaazilink</span>
+            </a>                    
+                    <div class="flex gap-4">
+                        <a href="/" class="inline-flex items-center px-[var(--padding-wk-x-sm)] py-[var(--padding-wk-y-sm)] text-[length:var(--text-wk-md)] rounded-[var(--radius-wk-sm)] transition-colors duration-[var(--transition-wk-duration)] hover:bg-[var(--color-wk-bg-subtle)] focus:outline-none focus-visible:ring-[length:var(--ring-wk-width)] focus-visible:ring-[var(--color-wk-ring)] text-[color:var(--color-wk-text)]">
+    Home
+    </a>
+                        <a href="/services" aria-current="page" class="inline-flex items-center px-[var(--padding-wk-x-sm)] py-[var(--padding-wk-y-sm)] text-[length:var(--text-wk-md)] rounded-[var(--radius-wk-sm)] transition-colors duration-[var(--transition-wk-duration)] hover:bg-[var(--color-wk-bg-subtle)] focus:outline-none focus-visible:ring-[length:var(--ring-wk-width)] focus-visible:ring-[var(--color-wk-ring)] text-[color:var(--color-wk-accent-text)] font-[number:var(--font-wk-heading-weight)]">
+    Services
+    </a>
+                        <a href="/how-it-works" class="inline-flex items-center px-[var(--padding-wk-x-sm)] py-[var(--padding-wk-y-sm)] text-[length:var(--text-wk-md)] rounded-[var(--radius-wk-sm)] transition-colors duration-[var(--transition-wk-duration)] hover:bg-[var(--color-wk-bg-subtle)] focus:outline-none focus-visible:ring-[length:var(--ring-wk-width)] focus-visible:ring-[var(--color-wk-ring)] text-[color:var(--color-wk-text)]">
+    How it Works
+    </a>
+                    </div>
+
+            </div>
+</nav>
+            
+    
+    <div class="relative flex flex-1 overflow-hidden">
+        
+        
+                    <main class="wk-main flex-1 wk-scrollbar overflow-y-auto px-[var(--padding-wk-x-lg)] py-[var(--space-wk-lg,1.5rem)]">
+            <div class="max-w-[var(--size-wk-container-2xl,96rem)] mx-auto w-full">
+            <div wire:snapshot="{&quot;data&quot;:{&quot;slug&quot;:&quot;plumbing&quot;,&quot;searchAreaId&quot;:&quot;Kilimani&quot;},&quot;memo&quot;:{&quot;id&quot;:&quot;RNI0bhGtPkKPr2uRUpFa&quot;,&quot;name&quot;:&quot;service-category.show&quot;,&quot;path&quot;:&quot;services\/plumbing&quot;,&quot;method&quot;:&quot;GET&quot;,&quot;release&quot;:&quot;a-a-a&quot;,&quot;children&quot;:[],&quot;scripts&quot;:[],&quot;assets&quot;:[],&quot;errors&quot;:[],&quot;locale&quot;:&quot;en&quot;,&quot;islands&quot;:[]},&quot;checksum&quot;:&quot;8bbd781fec8a2e59956443ac0e973bd4cc265344105eb0f28a2e6a7d95aac8ef&quot;}" wire:effects="{&quot;returns&quot;:[null]}" wire:id="RNI0bhGtPkKPr2uRUpFa" wire:name="service-category.show">
+    <section class="wk-section w-full py-[var(--space-wk-xl,2.5rem)] bg-[var(--color-wk-bg-subtle)] border-b border-[var(--color-wk-border-subtle)]">
+    <div class="w-full max-w-[var(--size-wk-container-xl,80rem)] mx-auto px-[var(--padding-wk-x-md,0.75rem)]">
+    <div class="py-8">
+                <nav aria-label="Breadcrumb" class="flex mb-6">
+    <ol class="list-none m-0 p-0 flex items-center gap-[var(--padding-wk-x-xs)] text-[length:var(--text-wk-sm)]" style="list-style: none; margin: 0; padding: 0;">
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->    </ol>
+</nav>
+
+
+<!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->                
+                <h1 class="text-4xl font-heading font-bold text-wk-text mb-4">Plumbing Providers</h1>
+                <p class="text-lg text-wk-text-subtle">Found 1 vetted professionals near you.</p>
+            </div>
+</div>
+</section>
+
+    <section class="wk-section w-full py-[var(--space-wk-xl,2.5rem)]">
+    <div class="w-full max-w-[var(--size-wk-container-xl,80rem)] mx-auto px-[var(--padding-wk-x-md,0.75rem)]">
+    <div class="flex flex-col md:flex-row gap-8">
+                <!-- Filters Sidebar -->
+                <div class="w-full md:w-64 shrink-0">
+                    <div data-wk-card="" class="bg-[var(--color-wk-bg-elevated)] text-[color:var(--color-wk-text)] rounded-[var(--radius-wk-lg)] overflow-hidden transition-shadow duration-[var(--transition-wk-duration)] ease-[var(--transition-wk-easing)] border-[length:var(--border-wk-width)] border-[var(--color-wk-border)]">
+    <div class="px-[var(--padding-wk-x-lg)] py-[var(--padding-wk-y-md)] border-b-[length:var(--border-wk-width)] border-[var(--color-wk-border-subtle)] font-[family-name:var(--font-wk-sans)] font-[number:var(--font-wk-heading-weight)] text-[length:var(--text-wk-lg)] text-[color:var(--color-wk-text)] flex items-center gap-[var(--gap-wk-sm)]">
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->    <div class="flex-1 min-w-0"><h3 class="font-heading font-semibold text-lg text-wk-accent">Filters</h3></div>
+</div>
+                        <div class="wk-card-body px-[var(--padding-wk-x-lg)] py-[var(--padding-wk-y-lg)] font-[family-name:var(--font-wk-sans)] text-[length:var(--text-wk-md)] text-[color:var(--color-wk-text)]" data-wk-padded="true">
+    <div class="space-y-4">
+                                <div>
+                                    <h4 class="text-sm font-medium text-wk-text mb-2">Location</h4>
+                                    <div class="space-y-1.5">
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]--><div x-data="wirekitCombobox({ value: null, options: [{&quot;value&quot;:&quot;1&quot;,&quot;label&quot;:&quot;CBD&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;2&quot;,&quot;label&quot;:&quot;Westlands&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;3&quot;,&quot;label&quot;:&quot;Kilimani&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;4&quot;,&quot;label&quot;:&quot;Kileleshwa&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;5&quot;,&quot;label&quot;:&quot;Lavington&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;6&quot;,&quot;label&quot;:&quot;Karen&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;7&quot;,&quot;label&quot;:&quot;Lang'ata&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;8&quot;,&quot;label&quot;:&quot;South B&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;9&quot;,&quot;label&quot;:&quot;South C&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;10&quot;,&quot;label&quot;:&quot;Eastleigh&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;11&quot;,&quot;label&quot;:&quot;Buruburu&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;12&quot;,&quot;label&quot;:&quot;Donholm&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;13&quot;,&quot;label&quot;:&quot;Umoja&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;14&quot;,&quot;label&quot;:&quot;Pipeline&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;15&quot;,&quot;label&quot;:&quot;Kasarani&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;16&quot;,&quot;label&quot;:&quot;Roysambu&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;17&quot;,&quot;label&quot;:&quot;Muthaiga&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;18&quot;,&quot;label&quot;:&quot;Ruaka&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;19&quot;,&quot;label&quot;:&quot;Rongai&quot;,&quot;disabled&quot;:false},{&quot;value&quot;:&quot;20&quot;,&quot;label&quot;:&quot;Syokimau&quot;,&quot;disabled&quot;:false}], listId: &quot;wk-combobox-searchAreaId-list&quot;, emptyId: &quot;wk-combobox-searchAreaId-list-empty&quot;, inputId: &quot;wk-combobox-searchAreaId&quot; })" @click.outside="open = false" class="relative w-full" data-has-alpine-state="true">
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+    
+    <!--[if BLOCK]><![endif]-->        
+        <input type="hidden" name="searchAreaId" value="3" :value="submittedValue">
+    <!--[if ENDBLOCK]><![endif]-->
+    
+    <input type="text" x-ref="cbxInput" id="wk-combobox-searchAreaId" role="combobox" aria-expanded="false" :aria-expanded="open" aria-controls="wk-combobox-searchAreaId-list" :aria-activedescendant="open &amp;&amp; filtered[highlight] ? &quot;wk-combobox-searchAreaId-list&quot; + '-opt-' + highlight : null" aria-autocomplete="list" placeholder="Search areas..." autocomplete="off" x-model="query" @focus="open = true" @input="openAndReset()" @keydown.arrow-down.prevent="openAndMove(1)" @keydown.arrow-up.prevent="moveHighlight(-1)" @keydown.home.prevent="openAtFirst()" @keydown.end.prevent="openAtLast()" @keydown.enter.prevent="activateHighlighted()" @keydown.escape="open = false" wire:model.live="searchAreaId" class="wk-field w-full px-[var(--padding-wk-x-md)] pr-[var(--size-wk-md)] bg-[var(--color-wk-bg-input)] text-[color:var(--color-wk-text)] placeholder:text-[color:var(--color-wk-text-placeholder)] border-[length:var(--border-wk-width)] border-[var(--color-wk-border-strong)] rounded-[var(--radius-wk-md)] focus:outline-none focus-visible:ring-[length:var(--ring-wk-width)] focus-visible:ring-[var(--color-wk-ring)] focus:border-[var(--color-wk-accent)] disabled:opacity-[var(--opacity-wk-disabled)] disabled:cursor-not-allowed transition-colors duration-[var(--transition-wk-duration)] h-[var(--size-wk-md)] text-[length:var(--text-wk-md)]">
+
+    
+    <!--[if BLOCK]><![endif]-->        <button type="button" x-show="selected" @click.stop="clearSelection()" class="absolute right-8 top-1/2 -translate-y-1/2 inline-flex items-center justify-center min-w-[24px] min-h-[24px] rounded-[var(--radius-wk-sm)] text-[color:var(--color-wk-text-muted)] hover:text-[color:var(--color-wk-danger-text)] hover:bg-[var(--color-wk-bg-subtle)] focus-visible:outline-none focus-visible:ring-[length:var(--ring-wk-width)] focus-visible:ring-[var(--color-wk-ring)] transition-colors duration-[var(--transition-wk-duration)] cursor-pointer" aria-label="Clear selection">
+            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z"></path>
+            </svg>
+        </button>
+    <!--[if ENDBLOCK]><![endif]-->
+    
+    <button type="button" @click.stop="toggleAndFocus()" tabindex="-1" aria-hidden="true" class="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 rounded-[var(--radius-wk-sm)] text-[color:var(--color-wk-text-muted)] hover:text-[color:var(--color-wk-text)] focus-visible:outline-none focus-visible:ring-[length:var(--ring-wk-width)] focus-visible:ring-[var(--color-wk-ring)] transition-transform duration-[var(--transition-wk-duration)] cursor-pointer disabled:cursor-not-allowed disabled:opacity-[var(--opacity-wk-disabled)]" :class="open ? 'rotate-180' : ''">
+        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.06l3.71-3.83a.75.75 0 111.08 1.04l-4.25 4.39a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd"></path>
+        </svg>
+    </button>
+
+    
+    
+    <template x-teleport="#wk-overlay-root" data-teleport-template="true">
+    <ul wire:key="wk-combobox-list" id="wk-combobox-searchAreaId-list" x-ref="cbxList" role="listbox" class="fixed z-[var(--z-wk-dropdown)] list-none wk-scrollbar max-h-60 overflow-auto bg-[var(--color-wk-bg-elevated)] border-[length:var(--border-wk-width)] border-[var(--color-wk-border)] rounded-[var(--radius-wk-md)] shadow-[var(--shadow-wk-md)] py-1" style="list-style: none; margin: 0; padding: 0;" x-show="open &amp;&amp; filtered.length &gt; 0" x-cloak="">
+        <!--[if BLOCK]><![endif]-->        <template x-for="(opt, idx) in filtered" :key="opt.value">
+            <li role="option" :id="&quot;wk-combobox-searchAreaId-list&quot; + '-opt-' + idx" :aria-selected="selected === opt.value" :aria-disabled="opt.disabled ? 'true' : null" :class="opt.disabled
+                    ? 'text-[color:var(--color-wk-text-muted)] opacity-[var(--opacity-wk-disabled)] cursor-not-allowed'
+                    : (idx === highlight
+                        ? 'bg-[var(--color-wk-bg-muted)] text-[color:var(--color-wk-text)] cursor-pointer'
+                        : 'text-[color:var(--color-wk-text-muted)] hover:bg-[var(--color-wk-bg-muted)] hover:text-[color:var(--color-wk-text)] cursor-pointer')" class="p-[var(--padding-wk-y-sm)] text-[length:var(--text-wk-md)]" @click="selectOption(opt)" @mouseenter="hoverOption(opt, idx)" x-text="opt.label"></li>
+        </template>
+        <!--[if ENDBLOCK]><![endif]-->    </ul>
+    </template>
+
+    
+    <template x-teleport="#wk-overlay-root" data-teleport-template="true">
+    <div wire:key="wk-combobox-empty" id="wk-combobox-searchAreaId-list-empty" class="fixed z-[var(--z-wk-dropdown)] list-none wk-scrollbar max-h-60 overflow-auto bg-[var(--color-wk-bg-elevated)] border-[length:var(--border-wk-width)] border-[var(--color-wk-border)] rounded-[var(--radius-wk-md)] shadow-[var(--shadow-wk-md)] py-1" x-ref="cbxEmpty" x-show="open &amp;&amp; filtered.length === 0 &amp;&amp; query !== ''" x-cloak="">
+        <p class="p-[var(--padding-wk-y-sm)] text-[length:var(--text-wk-md)] text-[color:var(--color-wk-text-muted)]">No results</p>
+    </div>
+    </template>
+
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]--></div>
+
+
+</div>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-medium text-wk-text mb-2">Price Range</h4>
+                                    <div class="space-y-2">
+                                        <div class="space-y-1.5">
+    <label for="price" class="group inline-flex items-start gap-2 cursor-pointer relative align-top">
+        
+        <input type="checkbox" id="price" name="price" class="peer sr-only" data-wk-indeterminate="false" x-wk-indeterminate="" value="low">
+
+        
+        <span class="relative inline-flex items-center justify-center shrink-0 w-5 h-5 rounded-[var(--radius-wk-sm)] border-[length:var(--border-wk-width)] border-[var(--color-wk-border-strong)] peer-hover:border-[var(--color-wk-border-strong-hover)] bg-[var(--color-wk-bg-input)] peer-checked:bg-[var(--color-wk-accent)] peer-checked:border-[var(--color-wk-accent)] peer-indeterminate:bg-[var(--color-wk-accent)] peer-indeterminate:border-[var(--color-wk-accent)] peer-focus-visible:ring-[length:var(--ring-wk-width)] peer-focus-visible:ring-offset-[length:var(--ring-wk-offset)] peer-focus-visible:ring-[var(--color-wk-ring)] peer-focus-visible:ring-offset-[var(--color-wk-ring-offset)] peer-disabled:opacity-[var(--opacity-wk-disabled)] peer-disabled:cursor-not-allowed transition-colors duration-[var(--transition-wk-duration)] cursor-pointer text-[color:var(--color-wk-accent-fg)]" aria-hidden="true">
+            
+            <svg class="hidden group-has-[:checked]:block pointer-events-none w-full h-full p-0.5 text-[color:var(--color-wk-accent-fg)]" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+            </svg>
+            
+            <svg class="hidden group-has-[:indeterminate]:block pointer-events-none w-full h-full p-0.5 text-[color:var(--color-wk-accent-fg)]" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14"></path>
+            </svg>
+        </span>
+
+        <!--[if BLOCK]><![endif]-->            
+            <span class="text-[length:var(--text-wk-md)] text-[color:var(--color-wk-text)] select-none leading-tight pt-0.5">Under KES 1,000</span>
+        <!--[if ENDBLOCK]><![endif]-->    </label>
+
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+    
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]--></div>
+                                        <div class="space-y-1.5">
+    <label for="price-2" class="group inline-flex items-start gap-2 cursor-pointer relative align-top">
+        
+        <input type="checkbox" id="price-2" name="price" class="peer sr-only" data-wk-indeterminate="false" x-wk-indeterminate="" value="med">
+
+        
+        <span class="relative inline-flex items-center justify-center shrink-0 w-5 h-5 rounded-[var(--radius-wk-sm)] border-[length:var(--border-wk-width)] border-[var(--color-wk-border-strong)] peer-hover:border-[var(--color-wk-border-strong-hover)] bg-[var(--color-wk-bg-input)] peer-checked:bg-[var(--color-wk-accent)] peer-checked:border-[var(--color-wk-accent)] peer-indeterminate:bg-[var(--color-wk-accent)] peer-indeterminate:border-[var(--color-wk-accent)] peer-focus-visible:ring-[length:var(--ring-wk-width)] peer-focus-visible:ring-offset-[length:var(--ring-wk-offset)] peer-focus-visible:ring-[var(--color-wk-ring)] peer-focus-visible:ring-offset-[var(--color-wk-ring-offset)] peer-disabled:opacity-[var(--opacity-wk-disabled)] peer-disabled:cursor-not-allowed transition-colors duration-[var(--transition-wk-duration)] cursor-pointer text-[color:var(--color-wk-accent-fg)]" aria-hidden="true">
+            
+            <svg class="hidden group-has-[:checked]:block pointer-events-none w-full h-full p-0.5 text-[color:var(--color-wk-accent-fg)]" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+            </svg>
+            
+            <svg class="hidden group-has-[:indeterminate]:block pointer-events-none w-full h-full p-0.5 text-[color:var(--color-wk-accent-fg)]" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14"></path>
+            </svg>
+        </span>
+
+        <!--[if BLOCK]><![endif]-->            
+            <span class="text-[length:var(--text-wk-md)] text-[color:var(--color-wk-text)] select-none leading-tight pt-0.5">KES 1,000 - 3,000</span>
+        <!--[if ENDBLOCK]><![endif]-->    </label>
+
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+    
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]--></div>
+                                        <div class="space-y-1.5">
+    <label for="price-3" class="group inline-flex items-start gap-2 cursor-pointer relative align-top">
+        
+        <input type="checkbox" id="price-3" name="price" class="peer sr-only" data-wk-indeterminate="false" x-wk-indeterminate="" value="high">
+
+        
+        <span class="relative inline-flex items-center justify-center shrink-0 w-5 h-5 rounded-[var(--radius-wk-sm)] border-[length:var(--border-wk-width)] border-[var(--color-wk-border-strong)] peer-hover:border-[var(--color-wk-border-strong-hover)] bg-[var(--color-wk-bg-input)] peer-checked:bg-[var(--color-wk-accent)] peer-checked:border-[var(--color-wk-accent)] peer-indeterminate:bg-[var(--color-wk-accent)] peer-indeterminate:border-[var(--color-wk-accent)] peer-focus-visible:ring-[length:var(--ring-wk-width)] peer-focus-visible:ring-offset-[length:var(--ring-wk-offset)] peer-focus-visible:ring-[var(--color-wk-ring)] peer-focus-visible:ring-offset-[var(--color-wk-ring-offset)] peer-disabled:opacity-[var(--opacity-wk-disabled)] peer-disabled:cursor-not-allowed transition-colors duration-[var(--transition-wk-duration)] cursor-pointer text-[color:var(--color-wk-accent-fg)]" aria-hidden="true">
+            
+            <svg class="hidden group-has-[:checked]:block pointer-events-none w-full h-full p-0.5 text-[color:var(--color-wk-accent-fg)]" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+            </svg>
+            
+            <svg class="hidden group-has-[:indeterminate]:block pointer-events-none w-full h-full p-0.5 text-[color:var(--color-wk-accent-fg)]" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14"></path>
+            </svg>
+        </span>
+
+        <!--[if BLOCK]><![endif]-->            
+            <span class="text-[length:var(--text-wk-md)] text-[color:var(--color-wk-text)] select-none leading-tight pt-0.5">Over KES 3,000</span>
+        <!--[if ENDBLOCK]><![endif]-->    </label>
+
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+    
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]--></div>
+                                    </div>
+                                </div>
+                            </div>
+</div>
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]--></div>
+                </div>
+
+                <!-- Provider List -->
+                <div class="flex-1">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-[var(--space-wk-md,1rem)] gap-6">
+    <!--[if BLOCK]><![endif]-->                        <div data-wk-card="" class="bg-[var(--color-wk-bg-elevated)] text-[color:var(--color-wk-text)] rounded-[var(--radius-wk-lg)] overflow-hidden transition-shadow duration-[var(--transition-wk-duration)] ease-[var(--transition-wk-easing)] border-[length:var(--border-wk-width)] border-[var(--color-wk-border)]">
+    <div class="wk-card-body px-[var(--padding-wk-x-lg)] py-[var(--padding-wk-y-lg)] font-[family-name:var(--font-wk-sans)] text-[length:var(--text-wk-md)] text-[color:var(--color-wk-text)] flex gap-4" data-wk-padded="true">
+    <span class="relative inline-flex items-center justify-center bg-[var(--color-wk-bg-muted)] text-[color:var(--color-wk-text)] font-[family-name:var(--font-wk-sans)] font-[number:var(--font-wk-heading-weight)] border-[length:var(--border-wk-width)] border-[var(--color-wk-border-subtle)] overflow-hidden select-none shrink-0 w-12 h-12 text-[length:var(--text-wk-lg)] rounded-full">
+    <!--[if BLOCK]><![endif]-->        <img src="https://ui-avatars.com/api/?name=Test+Provider&amp;background=006B3F&amp;color=fff" alt="" class="w-full h-full object-cover">
+    <!--[if ENDBLOCK]><![endif]-->
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]--></span>                                <div>
+                                    <h3 class="font-heading font-semibold text-lg">Test Provider</h3>
+                                    <!--[if BLOCK]><![endif]-->                                        <p class="text-sm text-wk-text-subtle mb-2">3.3 km away</p>
+                                    <!--[if ENDBLOCK]><![endif]-->                                    <!--[if BLOCK]><![endif]-->    <span class="inline-flex items-center gap-x-1 font-[family-name:var(--font-wk-sans)] font-[number:var(--font-wk-heading-weight)] whitespace-nowrap border-[length:var(--border-wk-badge-width,var(--border-wk-width))] bg-[color-mix(in_srgb,var(--color-wk-warning)_12%,var(--color-wk-bg))] text-[color:var(--color-wk-warning-text)] border-[color-mix(in_srgb,var(--color-wk-warning)_25%,transparent)] h-6 px-2.5 text-[length:var(--text-wk-sm)] rounded-[var(--radius-wk-full)] mb-2" style="box-shadow: var(--shadow-wk-badge, inset 0 0 0 1px color-mix(in srgb, currentColor 30%, transparent), 0 1px 1px color-mix(in srgb, var(--color-wk-text) 4%, transparent));">
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->        ★ 5.0 (New)
+        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->    </span>
+<!--[if ENDBLOCK]><![endif]-->                                    <p class="text-sm font-medium text-wk-accent">Contact for pricing</p>
+                                </div>
+</div>
+                            <div class="px-[var(--padding-wk-x-lg)] py-[var(--padding-wk-y-md)] border-t-[length:var(--border-wk-width)] border-[var(--color-wk-border-subtle)] bg-[var(--color-wk-bg-subtle)] font-[family-name:var(--font-wk-sans)] text-[length:var(--text-wk-md)] text-[color:var(--color-wk-text)] flex justify-between">
+    <a href="http://127.0.0.1:8000/provider/9" class="inline-flex items-center justify-center gap-x-2 whitespace-nowrap wk-button cursor-pointer font-[family-name:var(--font-wk-sans)] font-[number:var(--font-wk-body-weight)] tracking-[var(--font-wk-letter-spacing)] leading-[var(--font-wk-line-height)] border-[length:var(--border-wk-width)] transition-colors duration-[var(--transition-wk-duration)] ease-[var(--transition-wk-easing)] focus:outline-none focus-visible:ring-[length:var(--ring-wk-width)] focus-visible:ring-offset-[length:var(--ring-wk-offset)] focus-visible:ring-[var(--color-wk-ring)] focus-visible:ring-offset-[var(--color-wk-ring-offset)] disabled:opacity-[var(--opacity-wk-disabled)] disabled:pointer-events-none bg-[var(--color-wk-bg)] text-[color:var(--color-wk-text)] border-[var(--color-wk-border)] hover:bg-[var(--color-wk-bg-subtle)] shadow-[var(--shadow-wk-sm)] h-[var(--size-wk-sm)] px-[var(--padding-wk-x-sm)] text-[length:var(--text-wk-sm)] rounded-[var(--radius-wk-sm)]">
+    
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+    
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+    View Profile
+
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]--></a>
+                                <button type="button" class="inline-flex items-center justify-center gap-x-2 whitespace-nowrap wk-button cursor-pointer font-[family-name:var(--font-wk-sans)] font-[number:var(--font-wk-body-weight)] tracking-[var(--font-wk-letter-spacing)] leading-[var(--font-wk-line-height)] border-[length:var(--border-wk-width)] transition-colors duration-[var(--transition-wk-duration)] ease-[var(--transition-wk-easing)] focus:outline-none focus-visible:ring-[length:var(--ring-wk-width)] focus-visible:ring-offset-[length:var(--ring-wk-offset)] focus-visible:ring-[var(--color-wk-ring)] focus-visible:ring-offset-[var(--color-wk-ring-offset)] disabled:opacity-[var(--opacity-wk-disabled)] disabled:pointer-events-none bg-[var(--color-wk-accent)] text-[color:var(--color-wk-accent-fg)] border-[var(--color-wk-accent)] hover:bg-[var(--color-wk-accent-hover)] hover:border-[var(--color-wk-accent-hover)] shadow-[var(--shadow-wk-sm)] h-[var(--size-wk-sm)] px-[var(--padding-wk-x-sm)] text-[length:var(--text-wk-sm)] rounded-[var(--radius-wk-sm)]">
+    
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+    
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+    Book Now
+
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]--></button>
+</div>
+    <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]--></div>
+                        <!--[if ENDBLOCK]><![endif]-->
+</div>
+
+                    <div class="mt-8">
+                        <!--[if BLOCK]><![endif]--><!--[if ENDBLOCK]><![endif]-->
+                    </div>
+                </div>
+            </div>
+</div>
+</section>
+</div>
+        </div>
+    </main>
+            </div>
+</div>
+
+        <script data-wk-overlay-label="Overlays" data-navigate-once="true" src="http://127.0.0.1:8000/vendor/wirekit/wirekit.js?v=1787901355" defer=""></script>
+        <!-- Livewire Scripts -->
+<script src="http://127.0.0.1:8000/livewire-f93a5397/livewire.js?id=4d123128" data-csrf="Sc5fGy9om61IIr8H0F9yOoYTEXKHedEHTAhY6y8q" data-module-url="http://127.0.0.1:8000/livewire-f93a5397" data-update-uri="http://127.0.0.1:8000/livewire-f93a5397/update" data-navigate-once="true"></script>
+    
+
+<div id="wk-overlay-root" role="region" aria-label="Overlays"><ul wire:key="wk-combobox-list" id="wk-combobox-searchAreaId-list" x-ref="cbxList" role="listbox" class="fixed z-[var(--z-wk-dropdown)] list-none wk-scrollbar max-h-60 overflow-auto bg-[var(--color-wk-bg-elevated)] border-[length:var(--border-wk-width)] border-[var(--color-wk-border)] rounded-[var(--radius-wk-md)] shadow-[var(--shadow-wk-md)] py-1" style="list-style: none; margin: 0px; padding: 0px; display: none;" x-show="open &amp;&amp; filtered.length &gt; 0" data-teleport-target="true" data-has-alpine-state="true">
+        <!--[if BLOCK]><![endif]-->        <template x-for="(opt, idx) in filtered" :key="opt.value">
+            <li role="option" :id="&quot;wk-combobox-searchAreaId-list&quot; + '-opt-' + idx" :aria-selected="selected === opt.value" :aria-disabled="opt.disabled ? 'true' : null" :class="opt.disabled
+                    ? 'text-[color:var(--color-wk-text-muted)] opacity-[var(--opacity-wk-disabled)] cursor-not-allowed'
+                    : (idx === highlight
+                        ? 'bg-[var(--color-wk-bg-muted)] text-[color:var(--color-wk-text)] cursor-pointer'
+                        : 'text-[color:var(--color-wk-text-muted)] hover:bg-[var(--color-wk-bg-muted)] hover:text-[color:var(--color-wk-text)] cursor-pointer')" class="p-[var(--padding-wk-y-sm)] text-[length:var(--text-wk-md)]" @click="selectOption(opt)" @mouseenter="hoverOption(opt, idx)" x-text="opt.label"></li>
+        </template><li role="option" :id="&quot;wk-combobox-searchAreaId-list&quot; + '-opt-' + idx" :aria-selected="selected === opt.value" :aria-disabled="opt.disabled ? 'true' : null" :class="opt.disabled
+                    ? 'text-[color:var(--color-wk-text-muted)] opacity-[var(--opacity-wk-disabled)] cursor-not-allowed'
+                    : (idx === highlight
+                        ? 'bg-[var(--color-wk-bg-muted)] text-[color:var(--color-wk-text)] cursor-pointer'
+                        : 'text-[color:var(--color-wk-text-muted)] hover:bg-[var(--color-wk-bg-muted)] hover:text-[color:var(--color-wk-text)] cursor-pointer')" class="p-[var(--padding-wk-y-sm)] text-[length:var(--text-wk-md)] bg-[var(--color-wk-bg-muted)] text-[color:var(--color-wk-text)] cursor-pointer" @click="selectOption(opt)" @mouseenter="hoverOption(opt, idx)" x-text="opt.label" id="wk-combobox-searchAreaId-list-opt-0" aria-selected="true">Kilimani</li>
+        <!--[if ENDBLOCK]><![endif]-->    </ul><div wire:key="wk-combobox-empty" id="wk-combobox-searchAreaId-list-empty" class="fixed z-[var(--z-wk-dropdown)] list-none wk-scrollbar max-h-60 overflow-auto bg-[var(--color-wk-bg-elevated)] border-[length:var(--border-wk-width)] border-[var(--color-wk-border)] rounded-[var(--radius-wk-md)] shadow-[var(--shadow-wk-md)] py-1" x-ref="cbxEmpty" x-show="open &amp;&amp; filtered.length === 0 &amp;&amp; query !== ''" data-teleport-target="true" style="display: none;" data-has-alpine-state="true">
+        <p class="p-[var(--padding-wk-y-sm)] text-[length:var(--text-wk-md)] text-[color:var(--color-wk-text-muted)]">No results</p>
+    </div></div></body></html>

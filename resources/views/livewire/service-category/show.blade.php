@@ -27,12 +27,13 @@
                             <div class="space-y-4">
                                 <div>
                                     <h4 class="text-sm font-medium text-wk-text mb-2">Location</h4>
-                                    <x-wirekit::select name="location">
-                                        <option>Nairobi</option>
-                                        <option>Mombasa</option>
-                                        <option>Kisumu</option>
-                                        <option>Nakuru</option>
-                                    </x-wirekit::select>
+                                    <x-wirekit::combobox
+                                        name="searchAreaId"
+                                        label=""
+                                        wire:model.live="searchAreaId"
+                                        :options="$availableAreasOptions"
+                                        placeholder="Search areas..."
+                                    />
                                 </div>
                                 <div>
                                     <h4 class="text-sm font-medium text-wk-text mb-2">Price Range</h4>
@@ -44,9 +45,6 @@
                                 </div>
                             </div>
                         </x-wirekit::card.body>
-                        <x-wirekit::card.footer>
-                            <x-wirekit::button size="sm" class="w-full">Apply Filters</x-wirekit::button>
-                        </x-wirekit::card.footer>
                     </x-wirekit::card>
                 </div>
 
@@ -59,7 +57,11 @@
                                 <x-wirekit::avatar src="https://ui-avatars.com/api/?name={{ urlencode($provider->name) }}&background=006B3F&color=fff" size="lg" />
                                 <div>
                                     <h3 class="font-heading font-semibold text-lg">{{ $provider->name }}</h3>
-                                    <p class="text-sm text-wk-text-subtle mb-2">Location TBA</p>
+                                    @if(isset($provider->distance))
+                                        <p class="text-sm text-wk-text-subtle mb-2">{{ number_format($provider->distance, 1) }} km away</p>
+                                    @else
+                                        <p class="text-sm text-wk-text-subtle mb-2">Serves {{ $provider->serviceAreas->count() ?: 'multiple' }} areas</p>
+                                    @endif
                                     <x-wirekit::badge intent="warning" class="mb-2">★ 5.0 (New)</x-wirekit::badge>
                                     <p class="text-sm font-medium text-wk-accent">Contact for pricing</p>
                                 </div>

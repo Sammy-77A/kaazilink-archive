@@ -55,4 +55,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $query->where('role', 'provider')
                      ->where('kyc_status', 'approved');
     }
+
+    public function serviceAreas()
+    {
+        return $this->belongsToMany(ServiceArea::class);
+    }
 }

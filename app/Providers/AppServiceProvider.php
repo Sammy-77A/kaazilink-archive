@@ -19,6 +19,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        if (\Illuminate\Support\Facades\DB::connection() instanceof \Illuminate\Database\SQLiteConnection) {
+            $pdo = \Illuminate\Support\Facades\DB::connection()->getPdo();
+            $pdo->sqliteCreateFunction('acos', 'acos', 1);
+            $pdo->sqliteCreateFunction('cos', 'cos', 1);
+            $pdo->sqliteCreateFunction('sin', 'sin', 1);
+            $pdo->sqliteCreateFunction('radians', 'deg2rad', 1);
+        }
     }
 }

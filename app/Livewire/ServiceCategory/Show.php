@@ -7,6 +7,7 @@ use Livewire\Component;
 class Show extends Component
 {
     public $slug;
+    public $searchAreaId = null;
 
     public function mount($slug)
     {
@@ -15,11 +16,36 @@ class Show extends Component
 
     public function render()
     {
-        // Fetch approved providers (mocking the relationship to the category for now by just getting all approved providers)
-        $providers = \App\Models\User::approvedProvider()->paginate(10);
+        $areas = \App\Models\ServiceArea::all()->map(function($area) {
+            return ['value' => $area->id, 'label' => $area->name];
+        })->toArray();
+        $query = \App\Models\User::approvedProvider();
+
+        if ($this->searchAreaId) {
+            $searchArea = \App\Models\ServiceArea::where('id', $this->searchAreaId)
+                                                 ->orWhere('name', $this->searchAreaId)
+                                                 ->first();
+            if ($searchArea) {
+                $lat = $searchArea->latitude;
+                $lng = $searchArea->longitude;
+                
+                $query->select('users.*')
+                      ->join('service_area_user', 'users.id', '=', 'service_area_user.user_id')
+                      ->join('service_areas', 'service_area_user.service_area_id', '=', 'service_areas.id')
+                      ->selectRaw(
+                          'MIN(6371 * acos(cos(radians(?)) * cos(radians(service_areas.latitude)) * cos(radians(service_areas.longitude) - radians(?)) + sin(radians(?)) * sin(radians(service_areas.latitude)))) AS distance',
+                          [$lat, $lng, $lat]
+                      )
+                      ->groupBy('users.id')
+                      ->orderBy('distance', 'asc');
+            }
+        }
+
+        $providers = $query->paginate(10);
 
         return view('livewire.service-category.show', [
             'providers' => $providers,
+            'availableAreasOptions' => $areas,
         ]);
     }
 }

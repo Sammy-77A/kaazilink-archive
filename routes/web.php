@@ -41,6 +41,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/kyc/document/{path}', [\App\Http\Controllers\KycDocumentController::class, 'show'])
         ->where('path', '.*')
         ->name('kyc.document');
+
+    // Provider Service Areas
+    Route::get('/provider/service-areas', \App\Livewire\Provider\ServiceAreasManager::class)->name('provider.service-areas');
 });
 
 // Admin Routes

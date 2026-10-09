@@ -27,6 +27,12 @@
                         <x-wirekit::navbar.item href="/" :active="request()->is('/')">Home</x-wirekit::navbar.item>
                         <x-wirekit::navbar.item href="/services" :active="request()->is('services*')">Services</x-wirekit::navbar.item>
                         <x-wirekit::navbar.item href="/how-it-works" :active="request()->is('how-it-works')">How it Works</x-wirekit::navbar.item>
+                        
+                        @auth
+                            @if(auth()->user()->isProvider())
+                                <x-wirekit::navbar.item href="/provider/service-areas" :active="request()->is('provider/service-areas')">My Areas</x-wirekit::navbar.item>
+                            @endif
+                        @endauth
                     </div>
                 </x-wirekit::navbar>
             </x-slot:header>
