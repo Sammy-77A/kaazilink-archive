@@ -48,10 +48,6 @@ class NewBookingRequestNotification extends Notification
             ->greeting("Jambo {$notifiable->name},")
             ->line("You have received a new booking request on Kaazilink for **{$serviceName}** from **{$clientName}**.");
 
-        if ($this->booking->price) {
-            $mail->line("**Agreed Rate:** KES " . number_format($this->booking->price, 2));
-        }
-
         if ($this->booking->scheduled_at) {
             $mail->line("**Requested Time:** " . $this->booking->scheduled_at->format('M d, Y \a\t g:i A'));
         }

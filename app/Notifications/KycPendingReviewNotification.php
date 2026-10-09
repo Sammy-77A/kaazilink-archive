@@ -34,15 +34,8 @@ class KycPendingReviewNotification extends Notification
             ->greeting("Habari Admin,")
             ->line("A provider has submitted their verification documents for review on Kaazilink.")
             ->line("**Provider Name:** {$userName}")
-            ->line("**Email:** {$userEmail}");
-
-        if ($user && $user->id_number) {
-            $mail->line("**National ID:** {$user->id_number}");
-        } else if ($user) {
-            $mail->line("**Account ID:** #{$user->id}");
-        }
-
-        $mail->line('Submitted files: National ID (Front & Back), KRA PIN.');
+            ->line("**Email:** {$userEmail}")
+            ->line('Submitted files: National ID (Front & Back), KRA PIN.');
 
         return $mail
             ->action('Review KYC Submission', route('admin.kyc.show', $this->submission->id))

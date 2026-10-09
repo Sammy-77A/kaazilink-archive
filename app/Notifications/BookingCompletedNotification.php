@@ -54,10 +54,6 @@ class BookingCompletedNotification extends Notification
                 ->line("**{$clientName}** has confirmed and marked your **{$serviceName}** booking as completed.")
                 ->line('Asante sana kwa kazi nzuri na huduma bora.');
 
-            if ($this->booking->price) {
-                $mail->line("**Job Value:** KES " . number_format($this->booking->price, 2));
-            }
-
             return $mail
                 ->action('View in Provider Hub', route('provider.dashboard'))
                 ->salutation("Kazi Iendelee,\nThe Kaazilink Team");
