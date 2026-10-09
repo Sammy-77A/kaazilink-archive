@@ -48,7 +48,7 @@
                                             <span class="text-sm font-semibold text-green-700">Rate: KES {{ number_format($booking->price, 2) }}</span>
                                             @if($booking->latestPayment)
                                                 @if($booking->latestPayment->isSuccessful())
-                                                    <x-wirekit::badge intent="success" size="sm">Paid ({{ ucfirst($booking->latestPayment->gateway) }})</x-wirekit::badge>
+                                                    <x-wirekit::badge intent="success" size="sm">Paid</x-wirekit::badge>
                                                 @elseif($booking->latestPayment->isFailed())
                                                     <x-wirekit::badge intent="danger" size="sm">Payment Failed</x-wirekit::badge>
                                                 @else

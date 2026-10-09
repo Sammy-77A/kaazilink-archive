@@ -81,7 +81,49 @@
                 {{-- ============================================================ --}}
                 {{-- STATE: Input form — before STK is sent                        --}}
                 {{-- ============================================================ --}}
+                @elseif($currentPayment && $currentPayment->status === 'successful')
+                    {{-- ============================================================ --}}
+                    {{-- STATE: Payment completed successfully                        --}}
+                    {{-- ============================================================ --}}
+                    <div class="p-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm">
+                        <div class="flex items-center gap-2 font-semibold text-green-900 mb-1">
+                            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            Payment Confirmed!
+                        </div>
+                        <p>Your M-PESA payment of <strong>KES {{ number_format($booking?->price, 2) }}</strong> has been received.</p>
+                        <p class="mt-1 text-green-700 text-xs">Your booking is now confirmed. You can track it in My Bookings.</p>
+                    </div>
+                    <div class="flex justify-end pt-2">
+                        <x-wirekit::button type="button" intent="primary" wire:click="$dispatch('wirekit-modal-close', { name: 'payment-modal' })">
+                            Done
+                        </x-wirekit::button>
+                    </div>
+
+                @elseif($currentPayment && in_array($currentPayment->status, ['cancelled', 'failed']))
+                    {{-- ============================================================ --}}
+                    {{-- STATE: Payment failed or cancelled — offer retry             --}}
+                    {{-- ============================================================ --}}
+                    <div class="p-4 bg-red-50 border border-red-200 rounded-lg text-red-800 text-sm">
+                        <span class="font-semibold block mb-1">
+                            {{ $currentPayment->status === 'cancelled' ? 'Payment Cancelled' : 'Payment Failed' }}
+                        </span>
+                        {{ $currentPayment->error_message ?: 'The payment was not completed. You may try again.' }}
+                    </div>
+                    <div class="flex justify-end gap-2 pt-2 border-t">
+                        <x-wirekit::button type="button" intent="neutral" wire:click="$dispatch('wirekit-modal-close', { name: 'payment-modal' })">
+                            Close
+                        </x-wirekit::button>
+                        <x-wirekit::button type="button" intent="primary" wire:click="resetPayment">
+                            Try Again
+                        </x-wirekit::button>
+                    </div>
+
                 @else
+                    {{-- ============================================================ --}}
+                    {{-- STATE: Input form — before STK is sent                       --}}
+                    {{-- ============================================================ --}}
                     @if($errorMessage)
                         <div class="p-4 bg-red-50 border border-red-200 rounded-lg text-red-800 text-sm mb-4">
                             <span class="font-semibold block mb-1">Payment Failed:</span>
@@ -108,7 +150,7 @@
                                 Cancel
                             </x-wirekit::button>
                             <x-wirekit::button type="submit" intent="primary">
-                                {{ ($currentPayment && $currentPayment->status === 'failed') ? 'Retry Payment' : 'Pay KES ' . number_format($booking?->price, 2) }}
+                                Pay KES {{ number_format($booking?->price, 2) }}
                             </x-wirekit::button>
                         </div>
                     </x-wirekit::form>
