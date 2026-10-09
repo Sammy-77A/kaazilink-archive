@@ -23,6 +23,15 @@ Build the complete UI, page scaffolding, and routing. The site must look and fee
 ### Phase 2 — "The Appliances" (NOT STARTED)
 Features are implemented one at a time from the roadmap below, each fully tested before the next begins, then wired into the existing Phase 1 UI.
 
+## Current Route Map (Phase 1)
+
+The following UI routes are currently active and using WireKit component-driven Livewire pages:
+- `/` — Home page
+- `/how-it-works` — How It Works (user & provider guide)
+- `/services` — Browse Service Categories (Directory) 
+- `/services/{slug}` — Individual Service Category (listing of providers in that category)
+- `/provider/{slug}` — Individual Provider Profile
+
 ## Phase 2 Feature Roadmap (build order, for future reference — do not implement during Phase 1)
 
 1. SMS Mobile Verification (signup)
