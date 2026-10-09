@@ -1,0 +1,49 @@
+# Environment Variables
+.env
+.env.*
+!.env.example
+!.env.testing
+
+# Private Keys & Certificates
+*.pem
+*.key
+*.cert
+*.crt
+id_rsa*
+*.p12
+*.pfx
+
+# Dependency Directories
+/vendor/
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Testing
+/tests/
+/phpunit.xml
+.phpunit.result.cache
+
+# Application specific
+/public/storage
+/public/hot
+/public/build
+/storage/*.key
+/storage/app/public/
+/storage/framework/cache/
+/storage/framework/sessions/
+/storage/framework/testing/
+/storage/framework/views/
+/storage/logs/
+
+# Secrets & Configs
+auth.json
+*.sqlite
+*.sqlite3
+
+# IDE / OS Files
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
