@@ -19,6 +19,13 @@ php artisan view:cache
 echo "→ [3/5] Running database migrations..."
 php artisan migrate --force
 
+if [ "$RUN_SEEDERS" = "true" ]; then
+    echo "Running seeders..."
+    php artisan db:seed --class=ProviderSeeder --no-interaction
+    php artisan db:seed --class=ReviewSeeder --no-interaction
+    echo "Seeders complete."
+fi
+
 echo "→ [4/5] Creating storage symlink..."
 php artisan storage:link || true
 
