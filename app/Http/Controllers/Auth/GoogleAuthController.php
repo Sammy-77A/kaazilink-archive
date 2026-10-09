@@ -47,12 +47,19 @@ class GoogleAuthController extends Controller
                 $user->markEmailAsVerified();
             }
 
-            Auth::login($user);
+            Auth::login($user, remember: true);
+            request()->session()->regenerate();
 
             return redirect()->intended('/');
             
         } catch (\Exception $e) {
-            return redirect('/login')->with('error', 'Authentication failed. Please try again.');
+            \Illuminate\Support\Facades\Log::error('Google Auth Failed', [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+            ]);
+
+            return redirect('/login')->with('error', 'Authentication failed: ' . $e->getMessage());
         }
     }
 }
