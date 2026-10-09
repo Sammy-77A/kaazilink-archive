@@ -54,6 +54,8 @@ class QaDataSeeder extends Seeder
         $provider1->update(['role' => 'provider', 'kyc_status' => 'approved']);
         $areas1 = ServiceArea::take(3)->pluck('id')->toArray();
         $provider1->serviceAreas()->sync($areas1);
+        \App\Models\ProviderService::firstOrCreate(['user_id' => $provider1->id, 'service_slug' => 'plumber']);
+        \App\Models\ProviderService::firstOrCreate(['user_id' => $provider1->id, 'service_slug' => 'mama-fua-laundry']);
 
         // 4. Pending Provider
         $provider2 = User::firstOrCreate(
@@ -90,6 +92,13 @@ class QaDataSeeder extends Seeder
             // Assign 1-3 random areas
             $areaIds = ServiceArea::inRandomOrder()->take(rand(1, 3))->pluck('id')->toArray();
             $p->serviceAreas()->sync($areaIds);
+            
+            // Assign some random services
+            $randomServices = ['plumber', 'electrician', 'carpenter', 'mama-fua-laundry', 'house-help-day-scholar', 'nanny-babysitter'];
+            shuffle($randomServices);
+            foreach (array_slice($randomServices, 0, rand(1, 3)) as $svc) {
+                \App\Models\ProviderService::firstOrCreate(['user_id' => $p->id, 'service_slug' => $svc]);
+            }
         }
     }
 }

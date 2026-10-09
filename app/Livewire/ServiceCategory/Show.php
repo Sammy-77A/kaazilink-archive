@@ -19,9 +19,19 @@ class Show extends Component
         $areas = \App\Models\ServiceArea::all()->map(function($area) {
             return ['value' => $area->id, 'label' => $area->name];
         })->toArray();
+        $category = collect(\App\Data\ServiceDirectory::getCategories())->firstWhere('slug', $this->slug);
+        
+        $serviceSlugs = [];
+        if ($category) {
+            $serviceSlugs = collect(\App\Data\ServiceDirectory::getServices())
+                ->where('category_id', $category['id'])
+                ->pluck('slug')
+                ->toArray();
+        }
+
         $query = \App\Models\User::approvedProvider()
-            ->whereHas('providerServices', function($q) {
-                $q->where('service_slug', $this->slug);
+            ->whereHas('providerServices', function($q) use ($serviceSlugs) {
+                $q->whereIn('service_slug', $serviceSlugs);
             });
 
         if ($this->searchAreaId) {

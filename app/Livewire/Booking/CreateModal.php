@@ -3,6 +3,7 @@
 namespace App\Livewire\Booking;
 
 use Livewire\Component;
+use Livewire\Attributes\On;
 use App\Models\User;
 use App\Models\Booking;
 use App\Models\ServiceArea;
@@ -24,8 +25,7 @@ class CreateModal extends Component
         'scheduledAt' => 'nullable|date|after:now',
     ];
 
-    protected $listeners = ['openBookingModal' => 'openModal'];
-
+    #[On('openBookingModal')]
     public function openModal($providerId)
     {
         $this->providerId = $providerId;

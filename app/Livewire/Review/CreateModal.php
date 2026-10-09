@@ -3,6 +3,7 @@
 namespace App\Livewire\Review;
 
 use Livewire\Component;
+use Livewire\Attributes\On;
 use App\Models\Booking;
 use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
@@ -20,8 +21,7 @@ class CreateModal extends Component
         'comment' => 'nullable|string|max:1000',
     ];
 
-    protected $listeners = ['openReviewModal' => 'openModal'];
-
+    #[On('openReviewModal')]
     public function openModal($bookingId)
     {
         $this->bookingId = $bookingId;

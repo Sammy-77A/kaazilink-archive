@@ -42,6 +42,12 @@
                                     <x-wirekit::navbar.item href="/kyc/submit" :active="request()->is('kyc/submit')">KYC Submission</x-wirekit::navbar.item>
                                 @endif
                             @endif
+                            @if(auth()->user()->role === 'client')
+                                <form method="POST" action="{{ route('provider.become') }}" class="inline">
+                                    @csrf
+                                    <button type="submit" class="text-wk-accent hover:text-wk-accent-strong px-3 py-2 rounded-md text-sm font-medium transition-colors">Become a Provider</button>
+                                </form>
+                            @endif
                             
                             <form method="POST" action="{{ route('logout') }}" class="inline">
                                 @csrf

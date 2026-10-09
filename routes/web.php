@@ -33,6 +33,15 @@ Route::middleware('auth')->group(function () {
         request()->session()->regenerateToken();
         return redirect('/');
     })->name('logout');
+    
+    // Become a Provider
+    Route::post('/provider/become', function () {
+        $user = Auth::user();
+        if ($user->role === 'client') {
+            $user->update(['role' => 'provider', 'kyc_status' => 'pending']);
+        }
+        return redirect()->route('kyc.submit');
+    })->name('provider.become');
 
     // Provider KYC Submit
     Route::get('/kyc/submit', \App\Livewire\Provider\KycSubmit::class)->name('kyc.submit');
