@@ -25,7 +25,7 @@ services:
       - key: LOG_CHANNEL
         value: errorlog              # Writes to stderr — visible in Render dashboard
       - key: LOG_LEVEL
-        value: error
+        value: debug
 
       # ── Database (NeonDB PostgreSQL) ─────────────────────────────────────────
       # Set DB_URL to your full NeonDB connection string:

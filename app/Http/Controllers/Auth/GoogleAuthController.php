@@ -30,6 +30,7 @@ class GoogleAuthController extends Controller
         ]);
 
         return Socialite::driver('google')
+            ->stateless()
             ->redirectUrl($redirectUrl)
             ->redirect();
     }
@@ -47,6 +48,7 @@ class GoogleAuthController extends Controller
 
         try {
             $googleUser = Socialite::driver('google')
+                ->stateless()
                 ->redirectUrl($redirectUrl)
                 ->user();
 
