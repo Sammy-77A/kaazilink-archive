@@ -41,10 +41,23 @@ class Show extends Component
             }
         }
 
-        $providers = $query->paginate(10);
+        $providers = $query->with('serviceAreas')->paginate(10);
+
+        $mapMarkers = collect($providers->items())->flatMap(function($provider) {
+            return $provider->serviceAreas->map(function($area) use ($provider) {
+                return [
+                    'id' => $provider->id . '-' . $area->id,
+                    'lat' => $area->latitude,
+                    'lng' => $area->longitude,
+                    'label' => $provider->name,
+                    'body' => $area->name,
+                ];
+            });
+        })->values()->toArray();
 
         return view('livewire.service-category.show', [
             'providers' => $providers,
+            'mapMarkers' => $mapMarkers,
             'availableAreasOptions' => $areas,
         ])->layout('components.layouts.app');
     }

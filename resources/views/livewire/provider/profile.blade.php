@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="md:ml-auto">
-                        <x-wirekit::button size="lg" intent="accent">Book Now</x-wirekit::button>
+                        <x-wirekit::button size="lg" intent="primary">Book Now</x-wirekit::button>
                     </div>
                 </div>
             </div>
@@ -71,6 +71,21 @@
                             <x-wirekit::button intent="neutral" surface="outline" class="w-full">Contact Support</x-wirekit::button>
                         </x-wirekit::card.footer>
                     </x-wirekit::card>
+
+                    @if(count($mapMarkers) > 0)
+                        <x-wirekit::card class="mt-6">
+                            <x-wirekit::card.header>
+                                <h3 class="font-heading font-semibold text-lg">Service Areas</h3>
+                            </x-wirekit::card.header>
+                            <x-wirekit::card.body class="p-0 overflow-hidden rounded-b-lg h-64">
+                                <x-wirekit::map 
+                                    :markers="$mapMarkers" 
+                                    styleUrl="https://tiles.openfreemap.org/styles/positron"
+                                    :zoom="11"
+                                />
+                            </x-wirekit::card.body>
+                        </x-wirekit::card>
+                    @endif
                 </div>
             </div>
         </x-wirekit::container>
