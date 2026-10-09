@@ -9,15 +9,29 @@ use Laravel\Socialite\Facades\Socialite;
 
 class GoogleAuthController extends Controller
 {
+    protected function getRedirectUrl(): string
+    {
+        $configured = config('services.google.redirect');
+        if (!empty($configured) && str_starts_with($configured, 'http')) {
+            return $configured;
+        }
+
+        return url('/auth/google/callback');
+    }
+
     public function redirect()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')
+            ->redirectUrl($this->getRedirectUrl())
+            ->redirect();
     }
 
     public function callback()
     {
         try {
-            $googleUser = Socialite::driver('google')->user();
+            $googleUser = Socialite::driver('google')
+                ->redirectUrl($this->getRedirectUrl())
+                ->user();
 
             // Find existing user by email
             $user = User::where('email', $googleUser->getEmail())->first();
