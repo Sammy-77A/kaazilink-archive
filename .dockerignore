@@ -18,7 +18,6 @@ scratch
 *.log
 
 # Docker meta
-.docker
 Dockerfile
 .dockerignore
 render.yaml
