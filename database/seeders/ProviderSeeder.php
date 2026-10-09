@@ -311,6 +311,292 @@ class ProviderSeeder extends Seeder
                     ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Appliance Repair', 'price' => 1],
                 ],
             ],
+
+            // --- HOME CARE (5 PROVIDERS) ---
+            [
+                'email' => 'mer@kz.com',
+                'name' => 'Mercy Wanjiru',
+                'phone' => '254712345619',
+                'category' => 'home-care',
+                'bio' => 'Experienced house help & professional nanny with CPR certification and 6 years experience in infant care, housekeeping, and meal preparation.',
+                'areas' => $getAreaIds(['Kilimani', 'Lavington', 'Kileleshwa', 'Westlands']),
+                'services' => [
+                    ['slug' => 'house-help-day-scholar', 'name' => 'House Help (Day Scholar)', 'price' => 1000],
+                    ['slug' => 'nanny-babysitter', 'name' => 'Nanny & Babysitting Services', 'price' => 1500],
+                ],
+                'test_service' => [
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Home Care', 'price' => 1],
+                ],
+            ],
+            [
+                'email' => 'fai@kz.com',
+                'name' => 'Faith Chebet',
+                'phone' => '254712345620',
+                'category' => 'home-care',
+                'bio' => 'Deep cleaning specialist providing upholstery extraction, carpet steaming, end-of-tenancy deep cleaning, and post-construction sanitization.',
+                'areas' => $getAreaIds(['Eldoret CBD', 'Elgon View (Eldoret)', 'Langas']),
+                'services' => [
+                    ['slug' => 'deep-cleaning-services', 'name' => 'Residential Deep Cleaning', 'price' => 5000],
+                    ['slug' => 'carpet-sofa-cleaning', 'name' => 'Carpet & Sofa Steam Cleaning', 'price' => 2500],
+                ],
+                'test_service' => [
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Home Care', 'price' => 1],
+                ],
+            ],
+            [
+                'email' => 'mar@kz.com',
+                'name' => 'Mary Achieng',
+                'phone' => '254712345621',
+                'category' => 'home-care',
+                'bio' => 'Reliable Mama Fua providing meticulous hand washing, iron pressing, curtain washing, and wardrobe organization across Nairobi estates.',
+                'areas' => $getAreaIds(['South B', 'South C', 'Madaraka']),
+                'services' => [
+                    ['slug' => 'mama-fua-laundry', 'name' => 'Mama Fua & Clothes Ironing', 'price' => 1000],
+                ],
+                'test_service' => [
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Home Care', 'price' => 1],
+                ],
+            ],
+            [
+                'email' => 'ant@kz.com',
+                'name' => 'Anthony Kamau',
+                'phone' => '254712345622',
+                'category' => 'home-care',
+                'bio' => 'Private chef skilled in Swahili, Continental, and traditional Kenyan cuisine for family gatherings, meal prep, and private events.',
+                'areas' => $getAreaIds(['Nyali', 'Bamburi', 'Shanzu']),
+                'services' => [
+                    ['slug' => 'cook-private-chef', 'name' => 'Private Chef & Catering Services', 'price' => 3500],
+                ],
+                'test_service' => [
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Home Care', 'price' => 1],
+                ],
+            ],
+            [
+                'email' => 'gra@kz.com',
+                'name' => 'Grace Muthoni',
+                'phone' => '254712345623',
+                'category' => 'home-care',
+                'bio' => 'Compassionate senior caregiver providing elder assistance, mobility support, medication management, and daily companionship.',
+                'areas' => $getAreaIds(['Karen', 'Runda', 'Muthaiga']),
+                'services' => [
+                    ['slug' => 'elderly-caregiver', 'name' => 'Elderly Caregiver & Nursing Assistance', 'price' => 2000],
+                ],
+                'test_service' => [
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Home Care', 'price' => 1],
+                ],
+            ],
+
+            // --- DAILY NEEDS & EMERGENCY (4 PROVIDERS) ---
+            [
+                'email' => 'bon@kz.com',
+                'name' => 'Boniface Kiprono',
+                'phone' => '254712345624',
+                'category' => 'daily-needs-emergency-response',
+                'bio' => 'Swift Boda Boda rider and errand runner handling parcel deliveries, document dispatch, and supermarket grocery shopping.',
+                'areas' => $getAreaIds(['Roysambu', 'Kasarani', 'Kahawa West']),
+                'services' => [
+                    ['slug' => 'boda-boda-rider', 'name' => 'Express Boda Boda Delivery', 'price' => 300],
+                    ['slug' => 'grocery-shopper', 'name' => 'Errand Runner & Grocery Shopper', 'price' => 500],
+                ],
+                'test_service' => [
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Daily Needs', 'price' => 1],
+                ],
+            ],
+            [
+                'email' => 'has@kz.com',
+                'name' => 'Hassan Ali',
+                'phone' => '254712345625',
+                'category' => 'daily-needs-emergency-response',
+                'bio' => 'Licensed Tuk Tuk transport provider offering affordable local luggage transport, passenger trips, and market deliveries.',
+                'areas' => $getAreaIds(['Mvita', 'Kisauni', 'Nyali']),
+                'services' => [
+                    ['slug' => 'tuk-tuk-taxi', 'name' => 'Tuk Tuk Taxi & Cargo Transport', 'price' => 400],
+                ],
+                'test_service' => [
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Daily Needs', 'price' => 1],
+                ],
+            ],
+            [
+                'email' => 'job@kz.com',
+                'name' => 'Job Wanyama',
+                'phone' => '254712345626',
+                'category' => 'daily-needs-emergency-response',
+                'bio' => 'Clean water delivery provider supplying fresh bowser water, bottled drinking water, and tank refill services for domestic use.',
+                'areas' => $getAreaIds(['Pipeline', 'Umoja', 'Donholm']),
+                'services' => [
+                    ['slug' => 'water-delivery', 'name' => 'Clean Water Tanker Delivery', 'price' => 2500],
+                ],
+                'test_service' => [
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Daily Needs', 'price' => 1],
+                ],
+            ],
+            [
+                'email' => 'pau@kz.com',
+                'name' => 'Paul Nderitu',
+                'phone' => '254712345627',
+                'category' => 'daily-needs-emergency-response',
+                'bio' => 'Emergency LPG cooking gas cylinder delivery technician (6kg & 13kg refills) with safety valve testing and regulator setup.',
+                'areas' => $getAreaIds(['Ruaka', 'Thindigua', 'Kiambu Town']),
+                'services' => [
+                    ['slug' => 'gas-cylinder-delivery', 'name' => 'LPG Gas Cylinder Refill & Delivery', 'price' => 1500],
+                ],
+                'test_service' => [
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Daily Needs', 'price' => 1],
+                ],
+            ],
+
+            // --- BEAUTY & EVENTS (4 PROVIDERS) ---
+            [
+                'email' => 'bre@kz.com',
+                'name' => 'Brenda Cherono',
+                'phone' => '254712345628',
+                'category' => 'beauty-events-social-support',
+                'bio' => 'Mobile salonist & hair stylist specializing in knotless braids, faux locs, dreadlocks installation, and bridal hair styling.',
+                'areas' => $getAreaIds(['Kilimani', 'Kileleshwa', 'Westlands']),
+                'services' => [
+                    ['slug' => 'mobile-hairdresser', 'name' => 'Mobile Hair Styling & Braiding', 'price' => 2500],
+                ],
+                'test_service' => [
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Beauty & Events', 'price' => 1],
+                ],
+            ],
+            [
+                'email' => 'kevo@kz.com',
+                'name' => 'Kevin Omondi',
+                'phone' => '254712345629',
+                'category' => 'beauty-events-social-support',
+                'bio' => 'Executive mobile barber providing crisp fades, beard grooming, hot towel treatments, and kids haircuts at your doorstep.',
+                'areas' => $getAreaIds(['CBD', 'Parklands', 'Westlands']),
+                'services' => [
+                    ['slug' => 'barber-kinyozi', 'name' => 'Mobile Barber & Beard Grooming', 'price' => 800],
+                ],
+                'test_service' => [
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Beauty & Events', 'price' => 1],
+                ],
+            ],
+            [
+                'email' => 'sta@kz.com',
+                'name' => 'Stacy Njeri',
+                'phone' => '254712345630',
+                'category' => 'beauty-events-social-support',
+                'bio' => 'Certified makeup artist and henna designer for weddings, traditional ceremonies (Ruracio), photoshoots, and special occasions.',
+                'areas' => $getAreaIds(['Karen', 'Lavington', 'Runda']),
+                'services' => [
+                    ['slug' => 'makeup-artist', 'name' => 'Glam & Bridal Makeup Services', 'price' => 4000],
+                    ['slug' => 'henna-artist', 'name' => 'Custom Henna Artwork', 'price' => 1500],
+                ],
+                'test_service' => [
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Beauty & Events', 'price' => 1],
+                ],
+            ],
+            [
+                'email' => 'maro@kz.com',
+                'name' => 'Mark Otieno',
+                'phone' => '254712345631',
+                'category' => 'beauty-events-social-support',
+                'bio' => 'Professional event photographer & drone videographer covering weddings, birthday parties, corporate functions, and portraits.',
+                'areas' => $getAreaIds(['Milimani (Nakuru)', 'Nakuru CBD', 'Free Area']),
+                'services' => [
+                    ['slug' => 'photographer-videographer', 'name' => 'Event Photography & Videography', 'price' => 15000],
+                    ['slug' => 'event-mc-dj', 'name' => 'Event MC & Sound DJ Setup', 'price' => 12000],
+                ],
+                'test_service' => [
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Beauty & Events', 'price' => 1],
+                ],
+            ],
+
+            // --- AGRICULTURE & FARMING (3 PROVIDERS) ---
+            [
+                'email' => 'wyc@kz.com',
+                'name' => 'Wycliffe Juma',
+                'phone' => '254712345632',
+                'category' => 'agriculture-rural-farming',
+                'bio' => 'Hardworking farm hand and landscaper skilled in shamba weeding, crop harvesting, flower gardening, and live fence trimming.',
+                'areas' => $getAreaIds(['Thika Town', 'Juja', 'Kiambu Town']),
+                'services' => [
+                    ['slug' => 'farm-laborer-shamba-boy', 'name' => 'Farm Laborer & Shamba Maintenance', 'price' => 800],
+                    ['slug' => 'landscaper-gardener', 'name' => 'Compound Landscaping & Gardening', 'price' => 2000],
+                ],
+                'test_service' => [
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Agriculture', 'price' => 1],
+                ],
+            ],
+            [
+                'email' => 'samr@kz.com',
+                'name' => 'Samuel Rotich',
+                'phone' => '254712345633',
+                'category' => 'agriculture-rural-farming',
+                'bio' => 'Tractor hire operator providing land ploughing, harrowing, rotavating, and agricultural transport across Rift Valley farms.',
+                'areas' => $getAreaIds(['Eldoret CBD', 'Kapseret', 'Huruma (Eldoret)']),
+                'services' => [
+                    ['slug' => 'tractor-hire', 'name' => 'Tractor Land Ploughing & Harrowing', 'price' => 3500],
+                ],
+                'test_service' => [
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Agriculture', 'price' => 1],
+                ],
+            ],
+            [
+                'email' => 'jan@kz.com',
+                'name' => 'Jane Waithera',
+                'phone' => '254712345634',
+                'category' => 'agriculture-rural-farming',
+                'bio' => 'Licensed Veterinary Officer providing livestock treatment, artificial insemination (AI), poultry vaccination, and crop disease consultation.',
+                'areas' => $getAreaIds(['Kikuyu Town', 'Ruaka', 'Thindigua']),
+                'services' => [
+                    ['slug' => 'veterinary-officer', 'name' => 'Veterinary Treatment & Livestock Care', 'price' => 2500],
+                    ['slug' => 'poultry-expert', 'name' => 'Poultry Farming Consultation', 'price' => 2000],
+                    ['slug' => 'agronomist', 'name' => 'Agronomy & Crop Disease Advisory', 'price' => 3000],
+                ],
+                'test_service' => [
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Agriculture', 'price' => 1],
+                ],
+            ],
+
+            // --- BUSINESS & EDUCATION (3 PROVIDERS) ---
+            [
+                'email' => 'ale@kz.com',
+                'name' => 'Alex Kibet',
+                'phone' => '254712345635',
+                'category' => 'business-cyber-education-health',
+                'bio' => 'Experienced private tutor offering CBC primary & secondary tuition in Mathematics, Sciences, and English home lessons.',
+                'areas' => $getAreaIds(['South B', 'South C', 'Madaraka']),
+                'services' => [
+                    ['slug' => 'tutor', 'name' => 'Private Home Lessons & CBC Tuition', 'price' => 1200],
+                ],
+                'test_service' => [
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Business & Education', 'price' => 1],
+                ],
+            ],
+            [
+                'email' => 'chr@kz.com',
+                'name' => 'Christine Musyoka',
+                'phone' => '254712345636',
+                'category' => 'business-cyber-education-health',
+                'bio' => 'Business services agent providing KRA NIL & individual tax returns filing, BRS business name registration, and fast typing/data entry.',
+                'areas' => $getAreaIds(['CBD', 'Westlands', 'Parklands']),
+                'services' => [
+                    ['slug' => 'kra-returns-assistant', 'name' => 'KRA Tax Filing & Returns Assistant', 'price' => 1000],
+                    ['slug' => 'business-registration-agent', 'name' => 'Business Name Registration Agent', 'price' => 3000],
+                    ['slug' => 'typist-data-entry', 'name' => 'Document Typing & Data Entry', 'price' => 800],
+                ],
+                'test_service' => [
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Business & Education', 'price' => 1],
+                ],
+            ],
+            [
+                'email' => 'ian@kz.com',
+                'name' => 'Ian Mutua',
+                'phone' => '254712345637',
+                'category' => 'business-cyber-education-health',
+                'bio' => 'Creative graphic designer crafting company logos, promotional flyers, social media banners, business cards, and brand identity packages.',
+                'areas' => $getAreaIds(['Milimani (Kisumu)', 'Kisumu CBD', 'Kondele']),
+                'services' => [
+                    ['slug' => 'graphic-designer', 'name' => 'Logo & Brand Identity Design', 'price' => 2500],
+                ],
+                'test_service' => [
+                    ['slug' => 'test-service-1kes', 'custom_name' => 'Test Service – Business & Education', 'price' => 1],
+                ],
+            ],
         ];
 
         $directoryServices = ServiceDirectory::getServices();
