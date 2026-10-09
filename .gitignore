@@ -38,3 +38,5 @@ id_rsa*
 /phpunit.xml
 *.sqlite
 *.sqlite3
+
+/public/vendor/wirekit
