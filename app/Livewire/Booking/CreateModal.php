@@ -30,7 +30,7 @@ class CreateModal extends Component
     {
         $this->providerId = $providerId;
         $this->reset(['serviceSlug', 'serviceAreaId', 'scheduledAt']);
-        $this->isOpen = true;
+        $this->dispatch('wirekit-modal-show', name: 'booking-create-modal');
     }
 
     public function submit()
@@ -63,7 +63,7 @@ class CreateModal extends Component
             'status' => 'requested',
         ]);
 
-        $this->isOpen = false;
+        $this->dispatch('wirekit-modal-close', name: 'booking-create-modal');
         
         // Dispatch success message via wirekit or standard session flash
         session()->flash('success', 'Booking requested successfully!');

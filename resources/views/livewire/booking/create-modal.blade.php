@@ -1,5 +1,5 @@
 <div>
-    <x-wirekit::modal wire:model="isOpen" ariaLabel="Book Provider">
+    <x-wirekit::modal name="booking-create-modal" ariaLabel="Book Provider">
         <x-wirekit::card>
             <x-wirekit::card.header>
                 <x-wirekit::heading size="lg">Book {{ $provider ? $provider->name : 'Provider' }}</x-wirekit::heading>
@@ -37,7 +37,7 @@
                     />
 
                     <div class="flex justify-end gap-2 pt-4">
-                        <x-wirekit::button type="button" intent="neutral" wire:click="$set('isOpen', false)">Cancel</x-wirekit::button>
+                        <x-wirekit::button type="button" intent="neutral" wire:click="$dispatch('wirekit-modal-close', { name: 'booking-create-modal' })">Cancel</x-wirekit::button>
                         <x-wirekit::button type="submit" intent="primary">Request Booking</x-wirekit::button>
                     </div>
                 </x-wirekit::form>

@@ -1,5 +1,5 @@
 <div>
-    <x-wirekit::modal wire:model="isOpen" ariaLabel="Leave a Review">
+    <x-wirekit::modal name="review-create-modal" ariaLabel="Leave a Review">
         <x-wirekit::card>
             <x-wirekit::card.header>
                 <x-wirekit::heading size="lg">Leave a Review</x-wirekit::heading>
@@ -35,7 +35,7 @@
                     />
 
                     <div class="flex justify-end gap-2 pt-4">
-                        <x-wirekit::button type="button" intent="neutral" wire:click="$set('isOpen', false)">Cancel</x-wirekit::button>
+                        <x-wirekit::button type="button" intent="neutral" wire:click="$dispatch('wirekit-modal-close', { name: 'review-create-modal' })">Cancel</x-wirekit::button>
                         <x-wirekit::button type="submit" intent="primary">Submit Review</x-wirekit::button>
                     </div>
                 </x-wirekit::form>

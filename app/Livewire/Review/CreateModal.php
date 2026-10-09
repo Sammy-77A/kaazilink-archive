@@ -26,7 +26,7 @@ class CreateModal extends Component
     {
         $this->bookingId = $bookingId;
         $this->reset(['rating', 'comment']);
-        $this->isOpen = true;
+        $this->dispatch('wirekit-modal-show', name: 'review-create-modal');
     }
 
     public function submit()
@@ -64,7 +64,7 @@ class CreateModal extends Component
             'comment' => $this->comment,
         ]);
 
-        $this->isOpen = false;
+        $this->dispatch('wirekit-modal-close', name: 'review-create-modal');
         session()->flash('success', 'Review submitted successfully!');
         $this->dispatch('reviewCreated');
     }
