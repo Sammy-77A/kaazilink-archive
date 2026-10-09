@@ -17,6 +17,11 @@ http {
     keepalive_timeout 65;
     client_max_body_size 20M;
 
+    map $http_x_forwarded_proto $https_override {
+        default off;
+        https on;
+    }
+
     server {
         listen ${PORT};
         root  /var/www/html/public;
@@ -38,6 +43,10 @@ http {
             fastcgi_pass            127.0.0.1:9000;
             fastcgi_index           index.php;
             fastcgi_param           SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+            fastcgi_param           HTTP_X_FORWARDED_PROTO $http_x_forwarded_proto;
+            fastcgi_param           HTTP_X_FORWARDED_FOR $http_x_forwarded_for;
+            fastcgi_param           HTTP_X_FORWARDED_HOST $http_x_forwarded_host;
+            fastcgi_param           HTTPS $https_override;
             include                 fastcgi_params;
             fastcgi_hide_header     X-Powered-By;
             fastcgi_read_timeout    120;
