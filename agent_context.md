@@ -32,6 +32,29 @@ The following UI routes are currently active and using WireKit component-driven 
 - `/services/{slug}` — Individual Service Category (listing of providers in that category)
 - `/provider/{slug}` — Individual Provider Profile
 
+## Booking State Machine (Phase 1 Socket)
+
+The core booking lifecycle uses the `Booking` model, tracking jobs through the following exact status enum:
+`requested`, `accepted`, `rejected`, `in_progress`, `completed`, `cancelled_by_client`, `cancelled_by_provider`, `no_show_client`, `no_show_provider`, `disputed`, `resolved`, `refunded`.
+
+A `BookingReschedule` model tracks the log of any edits to the `scheduled_at` field, storing original time, new time, requesting party, and reason.
+
+**Transition Stub Mapping (Waiting on Phase 2 Features):**
+- `accept()` — Feature 7 (Email/SMS Notifications)
+- `reject()` — Feature 7 (Email/SMS Notifications)
+- `markInProgress()` — Feature 4 (Location/Tracking - future usage)
+- `complete()` — Feature 6 (Reviews) & Feature 9 (Payment Percentage Deduction)
+- `cancelByClient()` — (Escrow refund logic)
+- `cancelByProvider()` — (Escrow refund logic)
+- `markNoShowClient()` — (Penalty logic)
+- `markNoShowProvider()` — (Penalty logic)
+- `dispute()` — (Admin dispute resolution panel)
+- `resolve()` — (Escrow payout logic)
+- `refund()` — Feature 8 (Daraja STK / M-PESA Reversals)
+- `reschedule()` — Feature 7 (Email/SMS Notifications)
+
+*Note: Per Phase 1 rules, the Booking model and its state transitions are strictly scaffolded as non-functional sockets and are NOT wired into any live UI.*
+
 ## Phase 2 Feature Roadmap (build order, for future reference — do not implement during Phase 1)
 
 1. SMS Mobile Verification (signup)
@@ -104,3 +127,4 @@ Before every commit, actively scan changed files for secrets — do not rely on 
 - **2026-08-27** — Renamed `README.md` to `agent_context.md` as per instructions.
 - **2026-08-27** — Completed Phase 1 "Sockets" Scaffolding: Initialized Laravel 11 project (with Livewire structure), set strict `.gitignore`, configured placeholders in `.env.example`, defined static `ServiceDirectory` model with 51 categories, created empty Phase 1 Livewire components, and stubbed foundational routes in `web.php`.
 - **2026-08-28** — Built the Phase 1 UI Visual Layer using WireKit components. Applied custom brand tokens (Kenyan Green, Terracotta, Safari Gold) in `app.css`. Scaffolded `home`, `browse`, `show`, `provider.profile`, and `how-it-works` pages using WireKit layout primitives (hero, grid, card, button). Validated UI across viewports using Playwright browser subagent and fixed minor routing bugs.
+- **2026-08-28** — Scaffolded the Phase 1 Booking Socket data model. Created `Booking` and `BookingReschedule` models and migrations mapping exactly to the locked state machine (`requested`, `accepted`, `in_progress`, etc). Added method stubs for all state transitions with TODOs linking to their future Phase 2 dependencies. Confirmed this backend socket is NOT yet wired into any UI.
