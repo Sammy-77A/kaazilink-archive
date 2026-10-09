@@ -1,4 +1,4 @@
-<div class="min-h-screen bg-[#FAFAFA] flex flex-col justify-center py-12 sm:px-6 lg:px-8" x-data="{ agreedTerms: false, termsNotice: false }">
+<div class="w-full flex-1 flex flex-col justify-center py-12 sm:px-6 lg:px-8" x-data="{ agreedTerms: false, termsNotice: false }">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 class="mt-6 text-center text-3xl font-extrabold text-[#1F2937] font-outfit">
             Create your account
