@@ -21,7 +21,7 @@
                     </div>
                     <div class="md:ml-auto">
                         @auth
-                            <x-wirekit::button size="lg" intent="primary" wire:click="$dispatch('openBookingModal', { providerId: {{ $provider->id }} })">Book Now</x-wirekit::button>
+                            <x-wirekit::button size="lg" intent="primary" wire:click="$dispatchTo('booking.create-modal', 'openBookingModal', { providerId: {{ $provider->id }} })">Book Now</x-wirekit::button>
                         @else
                             <x-wirekit::button size="lg" intent="primary" href="{{ route('login') }}">Login to Book</x-wirekit::button>
                         @endauth
@@ -91,7 +91,7 @@
             <div class="flex justify-between items-center mb-6">
                 <h2 class="text-2xl font-heading font-bold text-gray-900">Reviews</h2>
                 @if($canReview)
-                    <x-wirekit::button intent="primary" wire:click="$dispatch('openReviewModal', { bookingId: {{ $bookingIdToReview }} })">
+                    <x-wirekit::button intent="primary" wire:click="$dispatchTo('review.create-modal', 'openReviewModal', { bookingId: {{ $bookingIdToReview }} })">
                         Leave a Review
                     </x-wirekit::button>
                 @endif
