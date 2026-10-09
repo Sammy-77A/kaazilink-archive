@@ -56,6 +56,6 @@ class KycSubmit extends Component
 
     public function render()
     {
-        return view('livewire.provider.kyc-submit');
+        return view('livewire.provider.kyc-submit')->layout('components.layouts.app');
     }
 }

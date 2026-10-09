@@ -31,6 +31,10 @@
         </nav>
         <div class="p-4 border-t border-[#005a35]">
             <a href="{{ route('home') }}" class="block px-4 py-2 text-sm text-center hover:underline">Back to Main Site</a>
+            <form method="POST" action="{{ route('logout') }}" class="mt-2 text-center">
+                @csrf
+                <button type="submit" class="w-full text-sm hover:underline text-gray-200 hover:text-white px-4 py-2">Log Out</button>
+            </form>
         </div>
     </aside>
 

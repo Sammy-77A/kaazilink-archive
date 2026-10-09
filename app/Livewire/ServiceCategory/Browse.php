@@ -8,6 +8,6 @@ class Browse extends Component
 {
     public function render()
     {
-        return view('livewire.service-category.browse');
+        return view('livewire.service-category.browse')->layout('components.layouts.app');
     }
 }

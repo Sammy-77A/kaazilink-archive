@@ -46,6 +46,6 @@ class Show extends Component
         return view('livewire.service-category.show', [
             'providers' => $providers,
             'availableAreasOptions' => $areas,
-        ]);
+        ])->layout('components.layouts.app');
     }
 }

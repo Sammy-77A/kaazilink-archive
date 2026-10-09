@@ -20,6 +20,6 @@ class Profile extends Component
 
         return view('livewire.provider.profile', [
             'provider' => $provider,
-        ]);
+        ])->layout('components.layouts.app');
     }
 }

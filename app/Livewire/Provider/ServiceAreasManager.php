@@ -55,6 +55,6 @@ class ServiceAreasManager extends Component
         return view('livewire.provider.service-areas-manager', [
             'providerAreas' => $providerAreas,
             'availableAreasOptions' => $options
-        ]);
+        ])->layout('components.layouts.app');
     }
 }

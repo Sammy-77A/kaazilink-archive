@@ -8,6 +8,6 @@ class HowItWorks extends Component
 {
     public function render()
     {
-        return view('livewire.pages.how-it-works');
+        return view('livewire.pages.how-it-works')->layout('components.layouts.app');
     }
 }
