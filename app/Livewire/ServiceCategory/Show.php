@@ -43,10 +43,8 @@ class Show extends Component
 
         $query = \App\Models\User::approvedProvider();
         if (!empty($serviceSlugs)) {
-            $query->where(function($q) use ($serviceSlugs) {
-                $q->whereHas('providerServices', function($sub) use ($serviceSlugs) {
-                    $sub->whereIn('service_slug', $serviceSlugs);
-                })->orDoesntHave('providerServices');
+            $query->whereHas('providerServices', function($sub) use ($serviceSlugs) {
+                $sub->whereIn('service_slug', $serviceSlugs);
             });
         }
 
