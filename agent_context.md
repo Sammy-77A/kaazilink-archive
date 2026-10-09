@@ -158,7 +158,26 @@ Before every commit, actively scan changed files for secrets — do not rely on 
   - Built 7 native notification classes in `App\Notifications\` adhering to Kenyan grassroots brand voice: `NewBookingRequestNotification`, `BookingCompletedNotification`, `KycPendingReviewNotification`, `KycApprovedNotification`, `KycRejectedNotification`, `NewReviewNotification`, and `WelcomeNotification`.
   - Configured custom Kenyan brand voice for account verification in `AppServiceProvider::boot()` via `VerifyEmail::toMailUsing(...)` ("Karibu Kaazilink — Verify Your Account").
   - Registered listener for `Illuminate\Auth\Events\Verified` in `AppServiceProvider::boot()` to send `WelcomeNotification` only after email verification is genuinely complete.
-  - Consolidated KYC submission paths: deprecated standalone `KycSubmit` component and redirected `/kyc/submit` to `provider.onboarding` (the canonical 4-step wizard).
+  - Consolidated KYC submission paths: deprecated standalone `KycSubmit` component and redirected `/kyc/submit` to `provider.onboarding` (the canonical 4-step wizard) to eliminate duplicate KYC notifications.
   - Wired notification triggers into live domain events: booking creation (`CreateModal`), booking completion (`Booking::complete()`), KYC submission (`Onboarding::submitKyc()`), KYC approval/rejection (`Admin\Kyc\Show`), and review submission (`Review\CreateModal`).
-  - Configured zero third-party mailer lock-in; notifications are delivered synchronously using Laravel's native mail abstraction into `storage/logs/laravel.log` (or Mailpit) locally.
-  - Added comprehensive test suite in `tests/Feature/EmailNotificationsTest.php` (9 tests, 32 assertions) and verified 100% test pass across all 43 tests (169 assertions). Directly verified email dispatch into `storage/logs/laravel.log`.
+  - Added comprehensive test suite in `tests/Feature/EmailNotificationsTest.php` (9 tests, 32 assertions) and verified 100% test pass across all 43 tests (169 assertions).
+- **2026-09-17** - Email Notifications Verification Pass & Multi-Method E2E Audit:
+  - *Verification Methodology*: Cross-checked all 8 notification flows through three distinct layers:
+    1. Direct real browser automation (`scratch/verify_all_notifications_e2e.cjs`) driving the full user journey on real UI elements.
+    2. Direct disk-level mail inspection (`storage/logs/laravel.log`) inspecting parsed MIME headers (`To:`, `Subject:`) and decrypted plain-text bodies.
+    3. Automated PHPUnit test assertions (`tests/Feature/EmailNotificationsTest.php`) verifying model-level dispatch, payload types, and event bindings.
+  - *Queue Worker Architecture*: Confirmed that **no queue worker is required**. Notifications omit the `ShouldQueue` contract, meaning they execute synchronously within the HTTP lifecycle via the local mail log driver (`MAIL_MAILER=log`).
+  - *Issues Diagnosed & Fixed During Pass*:
+    - Root Cause 1: Duplicate KYC submissions and notifications were previously possible via both `/kyc/submit` and `/provider/onboarding`. Solved by aliasing `/kyc/submit` to redirect to `/provider/onboarding` and wiring notification dispatch solely to `Onboarding::submitKyc()`.
+    - Root Cause 2: WireKit modal action buttons rendered into `#wk-overlay-root` (which evaluates as invisible/hidden by automated tools). Solved test interaction by targeting the specific action button within the DOM rather than asserting overlay visibility.
+    - Root Cause 3: Registration and email verification authenticated sessions in the browser, triggering `guest` middleware redirects on subsequent login attempts. Solved by clearing browser session cookies between distinct role-based flows.
+  - *Audited Scenarios (All 8 Confirmed End-to-End with Genuine Log Captures)*:
+    1. Client books provider -> Provider notified with agreed rate and service name.
+    2. Provider marks booking complete -> Client notified with call to action to review.
+    3. Client marks booking complete -> Provider notified with completed job value.
+    4. Provider submits KYC -> Admin notified with provider details and link to review.
+    5. Admin approves KYC -> Provider notified of verified badge status.
+    6. Admin rejects KYC -> Provider notified with exact administrator rejection reason.
+    7. Client reviews provider -> Provider notified with star rating and verbatim comment.
+    8. New user registers -> Exactly ONE email sent (branded verification); Welcome email delivered only upon email verification completion.
+  - Verified remote git repository synchronization with GitHub (`bd6db8a` pushed to `origin/main`).
