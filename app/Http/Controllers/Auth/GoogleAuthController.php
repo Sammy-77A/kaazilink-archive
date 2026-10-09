@@ -87,6 +87,7 @@ class GoogleAuthController extends Controller
 
             Auth::login($user, remember: true);
             request()->session()->regenerate();
+            session()->save();
 
             \Illuminate\Support\Facades\Log::info('Google Auth: Successfully logged in user', [
                 'user_id' => $user->id,
