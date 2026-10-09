@@ -48,12 +48,12 @@ class Booking extends Model
 
     public function cancelByClient()
     {
-        // TODO: (Phase 2) Implement logic for client cancellation, penalties, and refund escrow processing
+        // TODO: (Phase 2) Implement logic for client cancellation, penalties, and M-PESA refund processing
     }
 
     public function cancelByProvider()
     {
-        // TODO: (Phase 2) Implement logic for provider cancellation and full refund to client
+        // TODO: (Phase 2) Implement logic for provider cancellation and full M-PESA refund to client
     }
 
     public function markNoShowClient()
@@ -68,12 +68,12 @@ class Booking extends Model
 
     public function dispute()
     {
-        // TODO: (Phase 2) Implement dispute logic, freezing escrow payouts, alerting admins
+        // TODO: (Phase 2) Implement dispute logic, alerting admins and freezing payment dispatch
     }
 
     public function resolve()
     {
-        // TODO: (Phase 2) Implement dispute resolution and final payout logic
+        // TODO: (Phase 2) Implement dispute resolution and final Daraja/M-PESA payout logic
     }
 
     public function refund()
