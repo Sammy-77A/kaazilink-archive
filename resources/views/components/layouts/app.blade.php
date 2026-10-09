@@ -109,7 +109,7 @@
                             
                             {{-- Drawer Header --}}
                             <div class="flex items-center justify-between px-5 pb-4 border-b border-gray-100">
-                                <a href="/" class="text-xl font-bold tracking-tight text-[#006B3F] font-heading" @click="mobileMenuOpen = false">
+                                <a href="/" class="text-xl font-bold tracking-tight text-gray-900 font-heading" @click="mobileMenuOpen = false">
                                     KAAZILINK
                                 </a>
                                 <button type="button" @click="mobileMenuOpen = false" class="p-1.5 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100">
