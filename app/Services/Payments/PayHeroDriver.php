@@ -86,13 +86,16 @@ class PayHeroDriver implements PaymentGatewayInterface
 
         // Support PayHero payload formats (nested response object or flat)
         $data = $payload['response'] ?? $payload;
-        $statusStr = (string)($data['status'] ?? $payload['status'] ?? '');
+
+        $statusStr = (string)($data['Status'] ?? $data['status'] ?? $payload['Status'] ?? $payload['status'] ?? '');
+        $statusBool = ($data['status'] ?? $payload['status'] ?? null) === true;
         $resultCode = $data['ResultCode'] ?? $payload['ResultCode'] ?? null;
         $resultDesc = $data['ResultDesc'] ?? $data['result_desc'] ?? $data['message'] ?? $payload['message'] ?? null;
 
         $isSuccess = strcasecmp($statusStr, 'Success') === 0 
+            || $statusBool === true
             || ($data['success'] ?? false) === true
-            || ($resultCode === 0 || $resultCode === '0');
+            || ($resultCode === 0 || $resultCode === '0' && $resultCode !== null);
 
         $isCancelled = false;
         if ((int)$resultCode === 1032 || ($resultDesc && stripos((string)$resultDesc, 'cancel') !== false)) {
