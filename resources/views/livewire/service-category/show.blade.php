@@ -72,12 +72,25 @@
                                         <p class="text-sm text-wk-text-subtle mb-2">Serves {{ $provider->serviceAreas->count() ?: 'multiple' }} areas</p>
                                     @endif
                                     <x-wirekit::badge intent="warning" class="mb-2">★ 5.0 (New)</x-wirekit::badge>
-                                    <p class="text-sm font-medium text-wk-accent">Contact for pricing</p>
+                                    @php
+                                        $matchedPs = $provider->providerServices->first(function($ps) use ($serviceSlugs) {
+                                            return in_array($ps->service_slug, $serviceSlugs);
+                                        }) ?? $provider->providerServices->first();
+                                    @endphp
+                                    @if($matchedPs && $matchedPs->price > 0)
+                                        <p class="text-sm font-bold text-wk-accent">{{ $matchedPs->formatted_price }}</p>
+                                    @else
+                                        <p class="text-sm font-medium text-wk-accent">Contact for pricing</p>
+                                    @endif
                                 </div>
                             </x-wirekit::card.body>
                             <x-wirekit::card.footer class="flex justify-between">
                                 <x-wirekit::button href="{{ route('provider.profile', ['slug' => $provider->id]) }}" size="sm" intent="neutral" surface="outline">View Profile</x-wirekit::button>
-                                <x-wirekit::button size="sm">Book Now</x-wirekit::button>
+                                @auth
+                                    <x-wirekit::button size="sm" wire:click="bookNow({{ $provider->id }})">Book Now</x-wirekit::button>
+                                @else
+                                    <x-wirekit::button size="sm" href="{{ route('login') }}">Book Now</x-wirekit::button>
+                                @endauth
                             </x-wirekit::card.footer>
                         </x-wirekit::card>
                         @empty
@@ -94,4 +107,7 @@
             </div>
         </x-wirekit::container>
     </x-wirekit::section>
+
+    <livewire:booking.create-modal />
+    <livewire:review.create-modal />
 </div>

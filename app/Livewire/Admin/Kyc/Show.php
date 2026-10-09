@@ -15,6 +15,9 @@ class Show extends Component
     {
         $this->submission->update(['status' => 'approved']);
         $this->submission->user->update(['kyc_status' => 'approved']);
+
+        // Notify provider of approval
+        $this->submission->user->notify(new \App\Notifications\KycApprovedNotification($this->submission));
         
         session()->flash('success', 'KYC approved successfully.');
         $this->redirect(route('admin.kyc.index'), navigate: true);
@@ -32,6 +35,9 @@ class Show extends Component
         ]);
         
         $this->submission->user->update(['kyc_status' => 'rejected']);
+
+        // Notify provider of rejection with reason
+        $this->submission->user->notify(new \App\Notifications\KycRejectedNotification($this->submission, $this->rejectionReason));
         
         session()->flash('success', 'KYC rejected.');
         $this->redirect(route('admin.kyc.index'), navigate: true);

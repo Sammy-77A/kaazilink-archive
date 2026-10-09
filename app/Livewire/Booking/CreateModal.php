@@ -26,17 +26,64 @@ class CreateModal extends Component
     ];
 
     #[On('openBookingModal')]
-    public function openModal($providerId)
+    public function openModal($providerId, $serviceSlug = null)
     {
         $this->providerId = $providerId;
+        $this->isOpen = true;
         $this->reset(['serviceSlug', 'serviceAreaId', 'scheduledAt']);
+        $this->resetValidation();
+
+        $provider = User::find($providerId);
+        if ($provider) {
+            if ($serviceSlug) {
+                $this->serviceSlug = $serviceSlug;
+            } else {
+                $firstService = $provider->providerServices->first();
+                if ($firstService) {
+                    $this->serviceSlug = $firstService->service_slug;
+                }
+            }
+            $firstArea = $provider->serviceAreas->first();
+            if ($firstArea) {
+                $this->serviceAreaId = $firstArea->id;
+            }
+        }
+
         $this->dispatch('wirekit-modal-show', name: 'booking-create-modal');
+    }
+
+    public function closeModal()
+    {
+        $this->isOpen = false;
+        $this->dispatch('wirekit-modal-close', name: 'booking-create-modal');
     }
 
     public function submit()
     {
         if (!Auth::check()) {
             return redirect()->route('login');
+        }
+
+        // Gracefully resolve name to numeric ID if text name was submitted
+        if ($this->serviceAreaId && !is_numeric($this->serviceAreaId)) {
+            $area = ServiceArea::where('name', $this->serviceAreaId)
+                ->orWhereRaw('LOWER(name) = ?', [strtolower(trim($this->serviceAreaId))])
+                ->first();
+            if ($area) {
+                $this->serviceAreaId = $area->id;
+            }
+        }
+
+        // Gracefully resolve service name to slug if service name was submitted
+        if ($this->serviceSlug) {
+            $allServices = collect(ServiceDirectory::getServices());
+            $foundService = $allServices->first(function($s) {
+                return strtolower($s['name']) === strtolower(trim($this->serviceSlug))
+                    || strtolower($s['slug']) === strtolower(trim($this->serviceSlug));
+            });
+            if ($foundService) {
+                $this->serviceSlug = $foundService['slug'];
+            }
         }
 
         $this->validate();
@@ -55,14 +102,23 @@ class CreateModal extends Component
             return;
         }
 
-        Booking::create([
+        $providerService = $provider->providerServices()
+            ->where('service_slug', $this->serviceSlug)
+            ->first();
+
+        $booking = Booking::create([
             'client_id' => Auth::id(),
             'provider_id' => $provider->id,
             'service_slug' => $this->serviceSlug,
+            'price' => $providerService ? $providerService->price : null,
             'scheduled_at' => $this->scheduledAt ?: null,
             'status' => 'requested',
         ]);
 
+        // Send email notification to provider
+        $provider->notify(new \App\Notifications\NewBookingRequestNotification($booking));
+
+        $this->isOpen = false;
         $this->dispatch('wirekit-modal-close', name: 'booking-create-modal');
         
         // Dispatch success message via wirekit or standard session flash
@@ -78,10 +134,11 @@ class CreateModal extends Component
         $areas = [];
         
         if ($provider) {
-            $allServices = collect(ServiceDirectory::getServices());
-            $services = $provider->providerServices->map(function($ps) use ($allServices) {
-                $s = $allServices->firstWhere('slug', $ps->service_slug);
-                return ['value' => $s['slug'], 'label' => $s['name']];
+            $services = $provider->providerServices->map(function($ps) {
+                return [
+                    'value' => $ps->service_slug,
+                    'label' => $ps->display_name . ' (' . $ps->formatted_price . ')',
+                ];
             })->toArray();
             
             $areas = $provider->serviceAreas->map(function($area) {

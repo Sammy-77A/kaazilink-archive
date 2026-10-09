@@ -28,11 +28,7 @@ class Profile extends Component
         // Enforce gating: only approved providers can be viewed
         $provider = \App\Models\User::approvedProvider()->with(['serviceAreas', 'providerServices', 'reviewsAsProvider.client'])->findOrFail($this->slug);
         
-        $allServices = collect(\App\Data\ServiceDirectory::getServices());
-        
-        $providerServices = $provider->providerServices->map(function($ps) use ($allServices) {
-            return $allServices->firstWhere('slug', $ps->service_slug);
-        })->filter();
+        $providerServices = $provider->providerServices;
 
         $reviews = $provider->reviewsAsProvider()->latest()->get();
         $averageRating = $reviews->avg('rating') ?: 0;

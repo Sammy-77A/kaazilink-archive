@@ -16,7 +16,9 @@
                         <div class="flex flex-wrap gap-4 items-center">
                             <x-wirekit::badge intent="warning">★ 4.8 (120 reviews)</x-wirekit::badge>
                             <x-wirekit::badge intent="success">✓ Verified by Kaazilink</x-wirekit::badge>
-                            <span class="text-sm font-medium text-wk-accent">From KES 1,500 / visit</span>
+                            @if($provider->years_of_experience)
+                                <x-wirekit::badge intent="info">{{ $provider->years_of_experience }} Years Exp.</x-wirekit::badge>
+                            @endif
                         </div>
                     </div>
                     <div class="md:ml-auto">
@@ -37,7 +39,7 @@
                 <div class="flex-1">
                     <h2 class="text-2xl font-heading font-semibold mb-6">About the Provider</h2>
                     <x-wirekit::prose class="mb-12">
-                        <p>Welcome to the profile of {{ $provider->name }}. We offer reliable, fast, and affordable services for both households and businesses.</p>
+                        <p>{{ $provider->bio ?: "Welcome to the profile of {$provider->name}. We offer reliable, fast, and affordable professional services in Kenya." }}</p>
                     </x-wirekit::prose>
 
                     <h2 class="text-2xl font-heading font-semibold mb-6">Services Offered</h2>
@@ -45,8 +47,19 @@
                         @forelse($services as $service)
                             <x-wirekit::card>
                                 <x-wirekit::card.body>
-                                    <h3 class="font-heading font-semibold text-lg">{{ $service['name'] }}</h3>
-                                    <p class="font-medium text-wk-accent mt-2">{{ $service['price_range'] }}</p>
+                                    <div class="flex items-start justify-between">
+                                        <h3 class="font-heading font-semibold text-lg">{{ $service->display_name }}</h3>
+                                        @if($service->is_custom)
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-amber-100 text-amber-800">Custom Service</span>
+                                        @endif
+                                    </div>
+                                    @if($service->display_description)
+                                        <p class="text-sm text-wk-text-subtle mt-1">{{ $service->display_description }}</p>
+                                    @endif
+                                    <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
+                                        <span class="text-xs text-gray-500 font-medium">Provider Rate:</span>
+                                        <span class="font-bold text-base text-wk-accent">{{ $service->formatted_price }}</span>
+                                    </div>
                                 </x-wirekit::card.body>
                             </x-wirekit::card>
                         @empty

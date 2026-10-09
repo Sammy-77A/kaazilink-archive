@@ -34,22 +34,34 @@ Route::middleware('auth')->group(function () {
         return redirect('/');
     })->name('logout');
     
+    // Dedicated Provider Onboarding
+    Route::get('/provider/onboarding', \App\Livewire\Provider\Onboarding::class)->name('provider.onboarding');
+
     // Become a Provider
+    Route::get('/provider/become', function () {
+        return redirect()->route('provider.onboarding');
+    })->name('provider.become.get');
+
     Route::post('/provider/become', function () {
         $user = Auth::user();
-        if ($user->role === 'client') {
-            $user->update(['role' => 'provider', 'kyc_status' => 'pending']);
+        if ($user && $user->role === 'client') {
+            $user->update(['role' => 'provider']);
         }
-        return redirect()->route('kyc.submit');
+        return redirect()->route('provider.onboarding');
     })->name('provider.become');
 
-    // Provider KYC Submit
-    Route::get('/kyc/submit', \App\Livewire\Provider\KycSubmit::class)->name('kyc.submit');
+    // Provider KYC Submit (Consolidated to unified 4-step onboarding flow)
+    Route::get('/kyc/submit', function () {
+        return redirect()->route('provider.onboarding');
+    })->name('kyc.submit');
     
     // Protected Document Access
     Route::get('/kyc/document/{path}', [\App\Http\Controllers\KycDocumentController::class, 'show'])
         ->where('path', '.*')
         ->name('kyc.document');
+
+    // Provider Dedicated Hub & Dashboard
+    Route::get('/provider/dashboard', \App\Livewire\Provider\Dashboard::class)->name('provider.dashboard');
 
     // Provider Service Areas
     Route::get('/provider/service-areas', \App\Livewire\Provider\ServiceAreasManager::class)->name('provider.service-areas');

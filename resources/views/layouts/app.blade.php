@@ -33,14 +33,21 @@
                         <x-wirekit::navbar.item href="/how-it-works" :active="request()->is('how-it-works')">How it Works</x-wirekit::navbar.item>
                         
                         @auth
+                            <x-wirekit::navbar.item href="{{ route('dashboard.bookings') }}" :active="request()->is('dashboard/bookings*')">My Bookings</x-wirekit::navbar.item>
+
                             @if(auth()->user()->isAdmin())
                                 <x-wirekit::navbar.item href="/admin" :active="request()->is('admin*')">Admin Dashboard</x-wirekit::navbar.item>
                             @endif
+
                             @if(auth()->user()->isProvider())
-                                <x-wirekit::navbar.item href="/provider/service-areas" :active="request()->is('provider/service-areas')">My Areas</x-wirekit::navbar.item>
-                                @if(auth()->user()->kyc_status === 'pending' || auth()->user()->kyc_status === 'rejected')
-                                    <x-wirekit::navbar.item href="/kyc/submit" :active="request()->is('kyc/submit')">KYC Submission</x-wirekit::navbar.item>
+                                <x-wirekit::navbar.item href="{{ route('provider.dashboard') }}" :active="request()->is('provider/dashboard*')" class="text-amber-500 font-semibold">Provider Hub</x-wirekit::navbar.item>
+                                @if(auth()->user()->kyc_status === 'approved')
+                                    <x-wirekit::navbar.item href="{{ route('provider.profile', ['slug' => auth()->id()]) }}" :active="request()->is('provider/' . auth()->id())">Public Profile</x-wirekit::navbar.item>
+                                @else
+                                    <x-wirekit::navbar.item href="{{ route('provider.onboarding') }}" :active="request()->is('provider/onboarding*')" class="text-wk-accent text-xs">Onboarding</x-wirekit::navbar.item>
                                 @endif
+                            @elseif(auth()->user()->isClient())
+                                <x-wirekit::navbar.item href="{{ route('provider.onboarding') }}" :active="request()->is('provider/onboarding*')" class="text-wk-accent font-medium">Become a Provider</x-wirekit::navbar.item>
                             @endif
                             
                             <form method="POST" action="{{ route('logout') }}" class="inline">

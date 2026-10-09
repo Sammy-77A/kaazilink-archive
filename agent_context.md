@@ -55,20 +55,19 @@ A `BookingReschedule` model tracks the log of any edits to the `scheduled_at` fi
 
 *Note: Per Phase 1 rules, the Booking model and its state transitions are strictly scaffolded as non-functional sockets and are NOT wired into any live UI.*
 
-## Phase 2 Feature Roadmap (build order, for future reference — do not implement during Phase 1)
+## Phase 2 Feature Roadmap (build order, for future reference)
 
-1. SMS Mobile Verification (signup)
-2. Email Verification (signup)
-3. KYC — Manual Verification (admin panel for ID/chief-letter/document review)
-4. Location Detection Logic (geo-matching clients to nearest providers)
-5. Google Maps API Integration (map display, provider location, navigation)
-6. Comments and Reviews (star ratings on completed jobs)
-7. Email Notifications (booking/confirmation/reminder alerts)
-8. Daraja STK Integration (M-PESA Lipa Na M-PESA Online push payments)
-9. Payment Percentage Deduction Logic (10–15% commission per completed transaction)
-10. TIPS — 2.5% Deduction (optional gratuity)
-11. Referral Points System Logic (redeemable referral rewards)
-12. Google Ad Revenue Integration (AdSense/Ad Manager monetization)
+1. Authentication & Deduplication (Google OAuth & Email Verification) [COMPLETE]
+2. KYC — Manual Verification & Admin Review [COMPLETE]
+3. Location Detection Logic & Service Areas [COMPLETE]
+4. Map Integration (MapLibre + OpenFreeMap) [COMPLETE]
+5. Booking Flow, Reviews & Provider Onboarding/Hub [COMPLETE]
+6. Email Notifications [COMPLETE]
+7. Daraja STK Integration (M-PESA Lipa Na M-PESA Online push payments)
+8. Payment Percentage Deduction Logic (10–15% commission per completed transaction)
+9. TIPS — 2.5% Deduction (optional gratuity)
+10. Referral Points System Logic (redeemable referral rewards)
+11. Google Ad Revenue Integration (AdSense/Ad Manager monetization)
 
 ## Explicitly Out of Scope (do not build, do not scaffold placeholders for)
 
@@ -136,3 +135,30 @@ Before every commit, actively scan changed files for secrets — do not rely on 
 - **2026-09-08** - Completed Phase 2 Feature 3: Location Detection Logic. Implemented the ServiceArea schema, relationships, and Nairobi ServiceAreaSeeder. Developed the ServiceAreasManager WireKit combobox UI for providers. Implemented Haversine distance raw SQL sorting within SQLite using injected PDO math functions for client search queries. Built comprehensive test suite and passed E2E Playwright verification confirming correct UI interactions and distance calculation.
 - **2026-09-11** - Completed Phase 2 Feature 4: Map Integration. Integrated MapLibre GL JS with OpenFreeMap (Positron style). Rendered markers for provider service areas dynamically using the WireKit map component on the Service Listing and Provider Profile pages. Validated map markers data formatting and strict gating for approved-only providers via comprehensive unit tests. Verified map logic without browser automation per explicit instructions.
 - **2026-09-11** - Completed Phase 2 Feature 5: Minimal Booking Flow + Comments and Reviews. Migrated and populated `provider_services` pivot table. Root-caused and fixed Livewire 3 modal event dispatch bug (replaced deprecated `$listeners` with `#[On]` attributes). Fixed category-vs-service slug mismatch in `/services` location filter. Implemented "Become a Provider" role-upgrade action for clients. Validated features directly with database raw queries and PHPUnit tests instead of browser automation.
+- **2026-09-17** - Fixed Book Now modal activation from the Professionals listing page and Category/Service pages. Root-caused why clicking "Book Now" failed without opening the provider profile: the modal was trapped inside WireKit's `#wk-overlay-root` teleport boundary. Resolved by ensuring consistent `openBookingModal` event handling, binding wire:click events cleanly, and connecting the modal component into category listings.
+- **2026-09-17** - Root-caused and permanently fixed KYC Photo Upload Failure ("Photo failed to upload" / "The idFront failed to upload"):
+  - *Error 1 (PHP startup / file size)*: High-resolution photos/PNGs exceeded default PHP `upload_max_filesize` (2M) and `post_max_size` (8M), and failed temporary file creation due to unset `upload_tmp_dir`.
+  - *Error 2 (500 Internal Server Error in Livewire TemporaryUploadedFile)*: Livewire uses `tmpfile()` to generate an ephemeral resource stream (`stream_get_meta_data($tmpFile)['uri']`). On Windows, when `sys_temp_dir` is unset in `php.ini`, `tmpfile()` fails and returns `false`, throwing `TypeError: stream_get_meta_data(): Argument #1 ($stream) must be of type resource, false given at TemporaryUploadedFile.php:27`.
+  - *Fix*: Created dedicated writable directory `storage/app/tmp`. Explicitly set `sys_temp_dir = "C:\Users\sam\Documents\KAAZILINK\storage\app\tmp"` and `upload_tmp_dir = "C:\Users\sam\Documents\KAAZILINK\storage\app\tmp"` in `php.ini`. Raised `upload_max_filesize = 25M` and `post_max_size = 30M`. Restarted the artisan server. Verified real file uploads (National ID front, back, KRA PIN) in browser tests without any upload errors.
+- **2026-09-17** - Added Comprehensive "Personal Details" Onboarding Step (Step 1 of 4-step wizard):
+  - Added migration `2026_09_17_200001_add_personal_details_to_users_table.php` (`id_number`, `phone`, `date_of_birth`, `address`, `years_of_experience`, `emergency_contact`).
+  - Re-architected `/provider/onboarding` into a 4-step wizard: Step 1 (Personal Details), Step 2 (Services & Pricing), Step 3 (Service Areas), Step 4 (KYC Verification).
+  - Enforced strict validation: 18+ age verification (`before_or_equal:-18 years`), national ID, address, emergency contact, and minimum 20-character bio.
+- **2026-09-17** - Implemented Provider Authoritative Pricing & Custom Services:
+  - Added migration `2026_09_17_200002_add_pricing_and_custom_to_provider_services_table.php` (`custom_name`, `custom_description`, `price`, `is_custom`).
+  - Added migration `2026_09_17_200003_add_price_to_bookings_table.php` (`price`).
+  - Providers can set custom KES prices for both platform services and custom services (`is_custom = true`), with inline price editing and removal capabilities.
+  - Updated Provider Profile (`/provider/{slug}`) and Category listings (`/services/{slug}`) to dynamically display provider rates.
+  - Updated `Booking\CreateModal` to present custom services with provider rates and persist `price` directly into `bookings` on request creation.
+- **2026-09-17** - Built Dedicated Provider Hub / Dashboard (`/provider/dashboard`):
+  - Created `App\Livewire\Provider\Dashboard` with tabs: Overview metrics (Total Earnings, Completed Jobs, Active Services, Client Rating), Services & Pricing management, Coverage Areas management, Incoming Bookings management (with "Accept Request" and "Mark Completed" actions), and Profile & Details editor.
+  - Separated navigation in application layouts: authenticated providers see "Provider Hub", while client accounts see "Become a Provider".
+- **2026-09-17** - Verified 100% test pass rate (34 tests, 137 assertions) across PHPUnit suite (`ProviderPricingAndDashboardTest`, `BookingAndOnboardingFlowTest`, `BookingAndReviewTest`, etc.) and completed full Playwright automated browser verification with screenshot artifacts (`evidence_10` through `evidence_17`).
+- **2026-09-17** - Completed Phase 2 Feature 6: Email Notifications:
+  - Built 7 native notification classes in `App\Notifications\` adhering to Kenyan grassroots brand voice: `NewBookingRequestNotification`, `BookingCompletedNotification`, `KycPendingReviewNotification`, `KycApprovedNotification`, `KycRejectedNotification`, `NewReviewNotification`, and `WelcomeNotification`.
+  - Configured custom Kenyan brand voice for account verification in `AppServiceProvider::boot()` via `VerifyEmail::toMailUsing(...)` ("Karibu Kaazilink — Verify Your Account").
+  - Registered listener for `Illuminate\Auth\Events\Verified` in `AppServiceProvider::boot()` to send `WelcomeNotification` only after email verification is genuinely complete.
+  - Consolidated KYC submission paths: deprecated standalone `KycSubmit` component and redirected `/kyc/submit` to `provider.onboarding` (the canonical 4-step wizard).
+  - Wired notification triggers into live domain events: booking creation (`CreateModal`), booking completion (`Booking::complete()`), KYC submission (`Onboarding::submitKyc()`), KYC approval/rejection (`Admin\Kyc\Show`), and review submission (`Review\CreateModal`).
+  - Configured zero third-party mailer lock-in; notifications are delivered synchronously using Laravel's native mail abstraction into `storage/logs/laravel.log` (or Mailpit) locally.
+  - Added comprehensive test suite in `tests/Feature/EmailNotificationsTest.php` (9 tests, 32 assertions) and verified 100% test pass across all 43 tests (169 assertions). Directly verified email dispatch into `storage/logs/laravel.log`.

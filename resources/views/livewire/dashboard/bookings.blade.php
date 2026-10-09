@@ -50,6 +50,12 @@
                                             Mark Completed
                                         </x-wirekit::button>
                                     @endif
+
+                                    @if($booking->status === 'completed' && Auth::id() === $booking->client_id && !$booking->review()->exists())
+                                        <x-wirekit::button wire:click="leaveReview({{ $booking->id }})" intent="primary" size="sm">
+                                            Leave Review
+                                        </x-wirekit::button>
+                                    @endif
                                 </div>
                             </x-wirekit::card.body>
                         </x-wirekit::card>
@@ -58,4 +64,6 @@
             @endif
         </x-wirekit::container>
     </x-wirekit::section>
+
+    <livewire:review.create-modal />
 </div>

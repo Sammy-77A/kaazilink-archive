@@ -40,3 +40,4 @@ id_rsa*
 *.sqlite3
 
 /public/vendor/wirekit
+/.playwright-mcp

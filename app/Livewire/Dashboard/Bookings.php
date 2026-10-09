@@ -25,6 +25,11 @@ class Bookings extends Component
         }
     }
 
+    public function leaveReview($bookingId)
+    {
+        $this->dispatch('openReviewModal', bookingId: $bookingId);
+    }
+
     public function render()
     {
         $user = Auth::user();

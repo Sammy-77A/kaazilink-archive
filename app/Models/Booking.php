@@ -12,8 +12,13 @@ class Booking extends Model
         'client_id',
         'provider_id',
         'service_slug',
+        'price',
         'status',
         'scheduled_at',
+    ];
+
+    protected $casts = [
+        'price' => 'decimal:2',
     ];
 
     /**
@@ -58,10 +63,19 @@ class Booking extends Model
         // TODO: (Phase 2) Implement state transition logic when provider arrives/starts job
     }
 
-    public function complete()
+    public function complete(?string $completedByRole = null)
     {
         $this->update(['status' => 'completed']);
-        // Payment percentages and requests for reviews will be triggered here in the future
+
+        if (!$completedByRole) {
+            $completedByRole = (auth()->check() && auth()->id() === $this->client_id) ? 'client' : 'provider';
+        }
+
+        if ($completedByRole === 'provider' && $this->client) {
+            $this->client->notify(new \App\Notifications\BookingCompletedNotification($this, 'provider'));
+        } elseif ($completedByRole === 'client' && $this->provider) {
+            $this->provider->notify(new \App\Notifications\BookingCompletedNotification($this, 'client'));
+        }
     }
 
     public function cancelByClient()

@@ -14,6 +14,11 @@ class Show extends Component
         $this->slug = $slug;
     }
 
+    public function bookNow($providerId)
+    {
+        $this->dispatch('openBookingModal', providerId: $providerId);
+    }
+
     public function render()
     {
         $areas = \App\Models\ServiceArea::all()->map(function($area) {
@@ -27,12 +32,23 @@ class Show extends Component
                 ->where('category_id', $category['id'])
                 ->pluck('slug')
                 ->toArray();
+        } else {
+            $service = collect(\App\Data\ServiceDirectory::getServices())->firstWhere('slug', $this->slug);
+            if ($service) {
+                $serviceSlugs = [$service['slug']];
+            } elseif ($this->slug === 'plumbing') {
+                $serviceSlugs = ['plumber', 'plumbing'];
+            }
         }
 
-        $query = \App\Models\User::approvedProvider()
-            ->whereHas('providerServices', function($q) use ($serviceSlugs) {
-                $q->whereIn('service_slug', $serviceSlugs);
+        $query = \App\Models\User::approvedProvider();
+        if (!empty($serviceSlugs)) {
+            $query->where(function($q) use ($serviceSlugs) {
+                $q->whereHas('providerServices', function($sub) use ($serviceSlugs) {
+                    $sub->whereIn('service_slug', $serviceSlugs);
+                })->orDoesntHave('providerServices');
             });
+        }
 
         if ($this->searchAreaId) {
             $searchArea = \App\Models\ServiceArea::where('id', $this->searchAreaId)
@@ -54,7 +70,7 @@ class Show extends Component
             }
         }
 
-        $providers = $query->with('serviceAreas')->paginate(10);
+        $providers = $query->with(['serviceAreas', 'providerServices'])->paginate(10);
 
         $mapMarkers = collect($providers->items())->flatMap(function($provider) {
             return $provider->serviceAreas->map(function($area) use ($provider) {
@@ -72,6 +88,7 @@ class Show extends Component
             'providers' => $providers,
             'mapMarkers' => $mapMarkers,
             'availableAreasOptions' => $areas,
+            'serviceSlugs' => $serviceSlugs,
         ])->layout('components.layouts.app');
     }
 }

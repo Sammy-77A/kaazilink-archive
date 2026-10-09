@@ -56,13 +56,18 @@ class CreateModal extends Component
             return;
         }
 
-        Review::create([
+        $review = Review::create([
             'booking_id' => $booking->id,
             'client_id' => $booking->client_id,
             'provider_id' => $booking->provider_id,
             'rating' => $this->rating,
             'comment' => $this->comment,
         ]);
+
+        // Notify provider of new review
+        if ($booking->provider) {
+            $booking->provider->notify(new \App\Notifications\NewReviewNotification($review));
+        }
 
         $this->dispatch('wirekit-modal-close', name: 'review-create-modal');
         session()->flash('success', 'Review submitted successfully!');
