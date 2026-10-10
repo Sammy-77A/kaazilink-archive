@@ -80,9 +80,12 @@ RUN mkdir -p \
         storage/framework/sessions \
         storage/framework/cache/data \
         storage/framework/views \
+        storage/app/public \
+        storage/app/private/livewire-tmp \
         bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache \
-    && chmod -R 775 storage bootstrap/cache
+    && chmod -R 775 storage bootstrap/cache \
+    && php artisan config:clear || true
 
 # ── Nginx config (template — PORT is substituted at runtime by start.sh) ─────
 COPY .docker/nginx.conf.template /etc/nginx/nginx.conf.template

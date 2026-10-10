@@ -129,11 +129,12 @@ return [
     */
 
     'temporary_file_upload' => [
-        // IMPORTANT: Must be 'local'. If this inherits the app default (R2/S3), Livewire
-        // can't open the temp file as a PHP stream resource and crashes with:
-        // stream_get_meta_data(): Argument #1 ($stream) must be of type resource, false given
-        // The final KYC store() call still targets the 'kyc' R2 disk — only staging is local.
-        'disk' => env('LIVEWIRE_TEMPORARY_FILE_UPLOAD_DISK', 'local'), // Example: 'local', 's3' | Default: 'default'
+        // HARDCODED to 'local' — DO NOT change to null or env() without understanding the impact.
+        // If this disk inherits R2/S3 (the app default in production), Livewire crashes:
+        //   stream_get_meta_data(): Argument #1 ($stream) must be of type resource, false given
+        // S3 streams cannot be opened as PHP file resource handles. Local disk can.
+        // The final KYC store($userId, 'kyc') still writes to R2 — only temp staging is local.
+        'disk' => 'local',
         'rules' => null,                                      // Example: ['file', 'mimes:png,jpg'] | Default: ['required', 'file', 'max:12288'] (12MB)
         'directory' => null,                                  // Example: 'tmp'                     | Default: 'livewire-tmp'
         'middleware' => null,                                 // Example: 'throttle:5,1'            | Default: 'throttle:60,1'
