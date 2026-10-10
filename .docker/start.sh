@@ -27,8 +27,12 @@ if [ "$RUN_SEEDERS" = "true" ]; then
     echo "Seeders complete."
 fi
 
-echo "→ [4/5] Creating storage symlink..."
+echo "→ [4/5] Creating storage symlink and Livewire temp upload directory..."
 php artisan storage:link || true
+# Livewire temp uploads use the local disk (storage/app/private/livewire-tmp).
+# This directory must exist and be writable — Render containers don't persist it.
+mkdir -p /var/www/html/storage/app/private/livewire-tmp
+chmod -R 775 /var/www/html/storage/app/private
 
 echo "→ [5/5] Starting supervisor (nginx + php-fpm)..."
 exec supervisord -c /etc/supervisor/conf.d/supervisord.conf

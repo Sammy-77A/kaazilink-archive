@@ -56,6 +56,11 @@ services:
       # ── File Storage (Cloudflare R2) ─────────────────────────────────────────
       - key: FILESYSTEM_DISK
         value: r2
+      # Livewire temp uploads MUST use local disk. R2/S3 drivers return S3 streams
+      # that PHP cannot open as resource handles (stream_get_meta_data crashes).
+      # The final KYC file store() still targets the 'kyc' R2 disk — only staging is local.
+      - key: LIVEWIRE_TEMPORARY_FILE_UPLOAD_DISK
+        value: local
       - key: R2_ACCESS_KEY_ID
         sync: false
       - key: R2_SECRET_ACCESS_KEY
