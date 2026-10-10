@@ -62,7 +62,8 @@ class Onboarding extends Component
         $this->emergency_contact = $user->emergency_contact ?? '';
         $this->bio = $user->bio ?? '';
 
-        // If client, mark role as provider so they can configure their profile
+        // If client, mark role as provider so they can configure their profile.
+        // Never overwrite the 'admin' role.
         if ($user->role === 'client') {
             $user->update(['role' => 'provider']);
         }
@@ -106,15 +107,16 @@ class Onboarding extends Component
 
         $user = Auth::user();
         $user->update([
-            'name' => $this->name,
-            'phone' => $this->phone,
-            'id_number' => $this->id_number,
-            'date_of_birth' => $this->date_of_birth,
-            'address' => $this->address,
+            'name'                => $this->name,
+            'phone'               => $this->phone,
+            'id_number'           => $this->id_number,
+            'date_of_birth'       => $this->date_of_birth,
+            'address'             => $this->address,
             'years_of_experience' => $this->years_of_experience,
-            'emergency_contact' => $this->emergency_contact,
-            'bio' => $this->bio,
-            'role' => 'provider',
+            'emergency_contact'   => $this->emergency_contact,
+            'bio'                 => $this->bio,
+            // Only promote to provider — never demote or overwrite the admin role.
+            'role'                => $user->isAdmin() ? 'admin' : 'provider',
         ]);
 
         session()->flash('personal_success', 'Personal details saved successfully.');
@@ -293,7 +295,11 @@ class Onboarding extends Component
             'status' => 'pending',
         ]);
 
-        $user->update(['kyc_status' => 'pending', 'role' => 'provider']);
+        // Never overwrite the 'admin' role when marking KYC as pending.
+        $user->update([
+            'kyc_status' => 'pending',
+            'role'       => $user->isAdmin() ? 'admin' : 'provider',
+        ]);
 
         // Notify admins of pending KYC submission
         $admins = \App\Models\User::where('role', 'admin')->get();
