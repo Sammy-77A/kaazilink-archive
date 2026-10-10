@@ -42,4 +42,4 @@ id_rsa*
 /public/vendor/wirekit
 /.playwright-mcp
 /scratch/
-".env copy"
+.env*
