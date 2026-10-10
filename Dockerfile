@@ -49,6 +49,13 @@ RUN docker-php-ext-configure gd \
 # ── Composer ─────────────────────────────────────────────────────────────────
 COPY --from=composer:2.7 /usr/bin/composer /usr/bin/composer
 
+# ── Custom PHP config ─────────────────────────────────────────────────────────
+# Sets upload_tmp_dir and sys_temp_dir to /tmp (always writable in Linux containers).
+# Fixes: stream_get_meta_data(tmpfile()) returning false when tmpfile() fails.
+COPY .docker/php.ini /usr/local/etc/php/conf.d/99-kaazilink.ini
+# Ensure /tmp is writable by www-data (PHP-FPM user)
+RUN chmod 1777 /tmp
+
 WORKDIR /var/www/html
 
 # ── PHP dependencies (cached layer — only re-runs if lock file changes) ──────
