@@ -6,6 +6,11 @@
 
         <title>{{ $title ?? config('app.name') }}</title>
 
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+        <link rel="icon" type="image/jpeg" href="/images/logo.jpeg">
+        <link rel="apple-touch-icon" href="/images/logo-icon.png">
+
         <!-- Google Fonts: Inter and Outfit -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +32,7 @@
                 {{-- Desktop Navbar (Hidden on mobile) --}}
                 <div class="hidden md:block">
                     <x-wirekit::navbar>
-                        <x-wirekit::brand name="Kaazilink" />
+                        <x-wirekit::brand logo="/images/logo.jpeg" name="" href="/" />
                         
                         <div class="flex gap-4 items-center">
                             <x-wirekit::navbar.item href="/" :active="request()->is('/')">Home</x-wirekit::navbar.item>
@@ -72,8 +77,8 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                             </svg>
                         </button>
-                        <a href="/" class="text-xl font-bold tracking-tight text-gray-900 font-heading">
-                            KAAZILINK
+                        <a href="/" class="flex items-center" aria-label="KaaziLink Home">
+                            <img src="/images/logo.jpeg" alt="KaaziLink" class="h-9 w-auto object-contain">
                         </a>
                     </div>
 
@@ -109,8 +114,8 @@
                             
                             {{-- Drawer Header --}}
                             <div class="flex items-center justify-between px-5 pb-4 border-b border-gray-100">
-                                <a href="/" class="text-xl font-bold tracking-tight text-gray-900 font-heading" @click="mobileMenuOpen = false">
-                                    KAAZILINK
+                                <a href="/" class="flex items-center" @click="mobileMenuOpen = false" aria-label="KaaziLink Home">
+                                    <img src="/images/logo.jpeg" alt="KaaziLink" class="h-9 w-auto object-contain">
                                 </a>
                                 <button type="button" @click="mobileMenuOpen = false" class="p-1.5 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -200,9 +205,9 @@
         <footer class="bg-white border-t border-gray-200 mt-auto w-full">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-gray-100 text-center md:text-left">
-                    <div class="space-y-1">
-                        <a href="/" class="text-xl font-bold tracking-tight text-gray-900 font-heading">
-                            KAAZILINK
+                    <div class="space-y-2">
+                        <a href="/" class="inline-flex items-center" aria-label="KaaziLink Home">
+                            <img src="/images/logo.jpeg" alt="KaaziLink" class="h-12 w-auto object-contain">
                         </a>
                         <p class="text-xs text-gray-500 font-inter">
                             Kenya's community service connection marketplace &bull; <span class="text-[#006B3F] font-medium">Tupate Fundi Haraka</span>

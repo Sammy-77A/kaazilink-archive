@@ -1,8 +1,30 @@
 <div>
-    <x-wirekit::hero variant="dark">
-        <x-slot:title>How Kaazilink Works</x-slot:title>
-        <x-slot:lede>Whether you need a job done or you're offering your skills, we make the connection simple, safe, and grassroots.</x-slot:lede>
-    </x-wirekit::hero>
+    {{-- "How KaaziLink Works" Hero — banner.jpg background with dark overlay for readability --}}
+    <section class="relative w-full overflow-hidden" style="min-height: 340px;">
+        {{-- Background: banner.jpg, anchored to the top so the worker photography is visible --}}
+        <div class="absolute inset-0">
+            <img
+                src="/images/banner.jpg"
+                alt=""
+                aria-hidden="true"
+                class="w-full h-full object-cover object-top"
+            >
+            {{-- Layered overlay: strong dark wash keeps ALL text readable regardless of image content --}}
+            <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.65) 60%, rgba(0,0,0,0.75) 100%);"></div>
+            {{-- Subtle green brand accent at bottom edge --}}
+            <div class="absolute bottom-0 left-0 right-0 h-1 bg-[#006B3F]"></div>
+        </div>
+
+        {{-- Content —  centred layout matches the wirekit "centered" layout style --}}
+        <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-24 text-center flex flex-col items-center justify-center" style="min-height: 340px;">
+            <h1 class="text-4xl sm:text-5xl font-heading font-bold text-white leading-tight mb-5 tracking-tight">
+                How <span class="text-[#4ADE80]">KaaziLink</span> Works
+            </h1>
+            <p class="text-lg sm:text-xl text-white/85 max-w-2xl leading-relaxed">
+                Whether you need a job done or you're offering your skills, we make the connection simple, safe, and grassroots.
+            </p>
+        </div>
+    </section>
 
     <x-wirekit::section>
         <x-wirekit::container>

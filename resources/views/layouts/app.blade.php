@@ -6,6 +6,12 @@
 
         <title>{{ $title ?? config('app.name') }}</title>
 
+        <!-- Favicon -->
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+        <link rel="icon" type="image/jpeg" href="/images/logo.jpeg">
+        <link rel="apple-touch-icon" href="/images/logo-icon.png">
+
+
         <!-- Google Fonts: Inter and Outfit -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +31,7 @@
         <x-wirekit::app-shell>
             <x-slot:header>
                 <x-wirekit::navbar>
-                    <x-wirekit::brand name="Kaazilink" />
+                    <x-wirekit::brand logo="/images/logo.jpeg" name="" href="/" />
                     
                     <div class="flex gap-4">
                         <x-wirekit::navbar.item href="/" :active="request()->is('/')">Home</x-wirekit::navbar.item>
